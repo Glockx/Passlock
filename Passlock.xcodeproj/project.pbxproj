@@ -3,27 +3,57 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5622FAFA24630826002BD6C2 /* SQLiteHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5622FAF924630826002BD6C2 /* SQLiteHelper.swift */; };
 		563689C32462C82400AB7455 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563689C22462C82400AB7455 /* AppDelegate.swift */; };
 		563689C52462C82400AB7455 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563689C42462C82400AB7455 /* SceneDelegate.swift */; };
-		563689C72462C82400AB7455 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563689C62462C82400AB7455 /* ContentView.swift */; };
+		563689C72462C82400AB7455 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563689C62462C82400AB7455 /* AppView.swift */; };
 		563689C92462C82A00AB7455 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 563689C82462C82A00AB7455 /* Assets.xcassets */; };
 		563689CC2462C82A00AB7455 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 563689CB2462C82A00AB7455 /* Preview Assets.xcassets */; };
 		563689CF2462C82B00AB7455 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 563689CD2462C82B00AB7455 /* LaunchScreen.storyboard */; };
+		563E47D924644D5F00A3191C /* Pods_Passlock.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 85E2CDF5314B5D6102485A78 /* Pods_Passlock.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		5657EE5E24680EED000514B9 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5657EE5D24680EED000514B9 /* HomeView.swift */; };
+		5657EE6024680F06000514B9 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5657EE5F24680F06000514B9 /* SettingsView.swift */; };
+		5657EE63246811EA000514B9 /* Bundle+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5657EE62246811EA000514B9 /* Bundle+Extensions.swift */; };
+		7A950F894074454260596CA2 /* Pods_Passlock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F087414A13B57F1F1E10C017 /* Pods_Passlock.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		563E47DA24644D5F00A3191C /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 12;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				563E47D924644D5F00A3191C /* Pods_Passlock.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		11F6EE08A4637BA5987B6B66 /* Pods-Passlock.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Passlock.debug.xcconfig"; path = "Target Support Files/Pods-Passlock/Pods-Passlock.debug.xcconfig"; sourceTree = "<group>"; };
+		48AE9EE089E679DDA7A89A18 /* Pods-Passlock.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Passlock.release.xcconfig"; path = "Target Support Files/Pods-Passlock/Pods-Passlock.release.xcconfig"; sourceTree = "<group>"; };
+		5622FAF924630826002BD6C2 /* SQLiteHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLiteHelper.swift; sourceTree = "<group>"; };
 		563689BF2462C82400AB7455 /* Passlock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Passlock.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		563689C22462C82400AB7455 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		563689C42462C82400AB7455 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		563689C62462C82400AB7455 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		563689C62462C82400AB7455 /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
 		563689C82462C82A00AB7455 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		563689CB2462C82A00AB7455 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		563689CE2462C82B00AB7455 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		563689D02462C82B00AB7455 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		563689DF2462D02A00AB7455 /* Passlock-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Passlock-Bridging-Header.h"; sourceTree = "<group>"; };
+		563E47E824644F1100A3191C /* SQLite.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SQLite.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5657EE5D24680EED000514B9 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		5657EE5F24680F06000514B9 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		5657EE62246811EA000514B9 /* Bundle+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Extensions.swift"; sourceTree = "<group>"; };
+		85E2CDF5314B5D6102485A78 /* Pods_Passlock.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Passlock.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F087414A13B57F1F1E10C017 /* Pods_Passlock.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Passlock.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,17 +61,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7A950F894074454260596CA2 /* Pods_Passlock.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5627342F246457EE002CFCE6 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				85E2CDF5314B5D6102485A78 /* Pods_Passlock.framework */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
 		563689B62462C82400AB7455 = {
 			isa = PBXGroup;
 			children = (
 				563689C12462C82400AB7455 /* Passlock */,
 				563689C02462C82400AB7455 /* Products */,
+				D4C3F0BC8A4DF14AFCA8621E /* Pods */,
+				DF1B30DDCEE7CE9D1A7001E8 /* Frameworks */,
+				5627342F246457EE002CFCE6 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -56,13 +98,16 @@
 		563689C12462C82400AB7455 /* Passlock */ = {
 			isa = PBXGroup;
 			children = (
+				5657EE61246811D4000514B9 /* Support Files */,
+				563689D62462C85900AB7455 /* Views */,
 				563689C22462C82400AB7455 /* AppDelegate.swift */,
 				563689C42462C82400AB7455 /* SceneDelegate.swift */,
-				563689C62462C82400AB7455 /* ContentView.swift */,
 				563689C82462C82A00AB7455 /* Assets.xcassets */,
 				563689CD2462C82B00AB7455 /* LaunchScreen.storyboard */,
 				563689D02462C82B00AB7455 /* Info.plist */,
 				563689CA2462C82A00AB7455 /* Preview Content */,
+				563689DF2462D02A00AB7455 /* Passlock-Bridging-Header.h */,
+				5622FAF924630826002BD6C2 /* SQLiteHelper.swift */,
 			);
 			path = Passlock;
 			sourceTree = "<group>";
@@ -75,6 +120,42 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		563689D62462C85900AB7455 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				563689C62462C82400AB7455 /* AppView.swift */,
+				5657EE5D24680EED000514B9 /* HomeView.swift */,
+				5657EE5F24680F06000514B9 /* SettingsView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		5657EE61246811D4000514B9 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				5657EE62246811EA000514B9 /* Bundle+Extensions.swift */,
+			);
+			path = "Support Files";
+			sourceTree = "<group>";
+		};
+		D4C3F0BC8A4DF14AFCA8621E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				11F6EE08A4637BA5987B6B66 /* Pods-Passlock.debug.xcconfig */,
+				48AE9EE089E679DDA7A89A18 /* Pods-Passlock.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		DF1B30DDCEE7CE9D1A7001E8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				563E47E824644F1100A3191C /* SQLite.framework */,
+				F087414A13B57F1F1E10C017 /* Pods_Passlock.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -82,9 +163,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 563689D32462C82B00AB7455 /* Build configuration list for PBXNativeTarget "Passlock" */;
 			buildPhases = (
+				C5F275A8C195B699D43F7BD5 /* [CP] Check Pods Manifest.lock */,
 				563689BB2462C82400AB7455 /* Sources */,
 				563689BC2462C82400AB7455 /* Frameworks */,
+				563689D72462C96E00AB7455 /* ShellScript */,
 				563689BD2462C82400AB7455 /* Resources */,
+				563E47DA24644D5F00A3191C /* Embed Frameworks */,
+				85162EEE213FD651065FA01E /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -141,14 +226,77 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		563689D72462C96E00AB7455 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 8;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nbuildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\")\nbuildNumber=$(($buildNumber + 1))\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"\n";
+		};
+		85162EEE213FD651065FA01E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Passlock/Pods-Passlock-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Passlock/Pods-Passlock-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Passlock/Pods-Passlock-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C5F275A8C195B699D43F7BD5 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Passlock-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		563689BB2462C82400AB7455 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				563689C32462C82400AB7455 /* AppDelegate.swift in Sources */,
+				5622FAFA24630826002BD6C2 /* SQLiteHelper.swift in Sources */,
 				563689C52462C82400AB7455 /* SceneDelegate.swift in Sources */,
-				563689C72462C82400AB7455 /* ContentView.swift in Sources */,
+				5657EE6024680F06000514B9 /* SettingsView.swift in Sources */,
+				5657EE5E24680EED000514B9 /* HomeView.swift in Sources */,
+				563689C72462C82400AB7455 /* AppView.swift in Sources */,
+				5657EE63246811EA000514B9 /* Bundle+Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -282,41 +430,49 @@
 		};
 		563689D42462C82B00AB7455 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 11F6EE08A4637BA5987B6B66 /* Pods-Passlock.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Passlock/Preview Content\"";
-				DEVELOPMENT_TEAM = 9YJEAPX976;
+				DEVELOPMENT_TEAM = 7N4RCPJ386;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Passlock/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.muztest.Passlock;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Passlock/Passlock-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
 		563689D52462C82B00AB7455 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 48AE9EE089E679DDA7A89A18 /* Pods-Passlock.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Passlock/Preview Content\"";
-				DEVELOPMENT_TEAM = 9YJEAPX976;
+				DEVELOPMENT_TEAM = 7N4RCPJ386;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Passlock/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.muztest.Passlock;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Passlock/Passlock-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
