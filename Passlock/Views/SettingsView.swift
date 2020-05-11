@@ -9,8 +9,8 @@
 import SwiftUI
 
 struct SettingsView: View {
+    
     // MARK: Intializing Verions and Build Numbers
-
     @State var version = Bundle.main.releaseVersionNumber
     @State var buildNumber = Bundle.main.buildVersionNumber
 

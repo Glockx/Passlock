@@ -18,6 +18,10 @@
 		5657EE5E24680EED000514B9 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5657EE5D24680EED000514B9 /* HomeView.swift */; };
 		5657EE6024680F06000514B9 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5657EE5F24680F06000514B9 /* SettingsView.swift */; };
 		5657EE63246811EA000514B9 /* Bundle+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5657EE62246811EA000514B9 /* Bundle+Extensions.swift */; };
+		56605CEF24682DF500DF2E8C /* LoginCredentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56605CEE24682DF500DF2E8C /* LoginCredentials.swift */; };
+		56605CF124682E2600DF2E8C /* CreditCardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56605CF024682E2600DF2E8C /* CreditCardModel.swift */; };
+		56605CF324682E3200DF2E8C /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56605CF224682E3200DF2E8C /* Note.swift */; };
+		56605CF524682E4300DF2E8C /* Identity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56605CF424682E4300DF2E8C /* Identity.swift */; };
 		7A950F894074454260596CA2 /* Pods_Passlock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F087414A13B57F1F1E10C017 /* Pods_Passlock.framework */; };
 /* End PBXBuildFile section */
 
@@ -52,6 +56,10 @@
 		5657EE5D24680EED000514B9 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		5657EE5F24680F06000514B9 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		5657EE62246811EA000514B9 /* Bundle+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Extensions.swift"; sourceTree = "<group>"; };
+		56605CEE24682DF500DF2E8C /* LoginCredentials.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCredentials.swift; sourceTree = "<group>"; };
+		56605CF024682E2600DF2E8C /* CreditCardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardModel.swift; sourceTree = "<group>"; };
+		56605CF224682E3200DF2E8C /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
+		56605CF424682E4300DF2E8C /* Identity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identity.swift; sourceTree = "<group>"; };
 		85E2CDF5314B5D6102485A78 /* Pods_Passlock.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Passlock.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F087414A13B57F1F1E10C017 /* Pods_Passlock.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Passlock.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -98,6 +106,8 @@
 		563689C12462C82400AB7455 /* Passlock */ = {
 			isa = PBXGroup;
 			children = (
+				56605CF724682E8300DF2E8C /* Controller */,
+				5657EE6424681750000514B9 /* Model */,
 				5657EE61246811D4000514B9 /* Support Files */,
 				563689D62462C85900AB7455 /* Views */,
 				563689C22462C82400AB7455 /* AppDelegate.swift */,
@@ -107,7 +117,6 @@
 				563689D02462C82B00AB7455 /* Info.plist */,
 				563689CA2462C82A00AB7455 /* Preview Content */,
 				563689DF2462D02A00AB7455 /* Passlock-Bridging-Header.h */,
-				5622FAF924630826002BD6C2 /* SQLiteHelper.swift */,
 			);
 			path = Passlock;
 			sourceTree = "<group>";
@@ -136,6 +145,33 @@
 				5657EE62246811EA000514B9 /* Bundle+Extensions.swift */,
 			);
 			path = "Support Files";
+			sourceTree = "<group>";
+		};
+		5657EE6424681750000514B9 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				56605CF624682E4A00DF2E8C /* Data Templates */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		56605CF624682E4A00DF2E8C /* Data Templates */ = {
+			isa = PBXGroup;
+			children = (
+				56605CEE24682DF500DF2E8C /* LoginCredentials.swift */,
+				56605CF024682E2600DF2E8C /* CreditCardModel.swift */,
+				56605CF224682E3200DF2E8C /* Note.swift */,
+				56605CF424682E4300DF2E8C /* Identity.swift */,
+			);
+			path = "Data Templates";
+			sourceTree = "<group>";
+		};
+		56605CF724682E8300DF2E8C /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				5622FAF924630826002BD6C2 /* SQLiteHelper.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 		D4C3F0BC8A4DF14AFCA8621E /* Pods */ = {
@@ -291,12 +327,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				563689C32462C82400AB7455 /* AppDelegate.swift in Sources */,
+				56605CEF24682DF500DF2E8C /* LoginCredentials.swift in Sources */,
 				5622FAFA24630826002BD6C2 /* SQLiteHelper.swift in Sources */,
 				563689C52462C82400AB7455 /* SceneDelegate.swift in Sources */,
 				5657EE6024680F06000514B9 /* SettingsView.swift in Sources */,
+				56605CF324682E3200DF2E8C /* Note.swift in Sources */,
+				56605CF524682E4300DF2E8C /* Identity.swift in Sources */,
 				5657EE5E24680EED000514B9 /* HomeView.swift in Sources */,
 				563689C72462C82400AB7455 /* AppView.swift in Sources */,
 				5657EE63246811EA000514B9 /* Bundle+Extensions.swift in Sources */,
+				56605CF124682E2600DF2E8C /* CreditCardModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
