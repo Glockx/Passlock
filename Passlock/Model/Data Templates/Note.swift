@@ -8,10 +8,12 @@
 
 import Foundation
 
-
-struct NoteItem: Identifiable,Codable
+// Intializing Note Data type which supports:
+// Uniqe ID - Title of Note - Date of Note - Text buffer.
+struct NoteItem: Item
 {
-    let id = UUID().uuidString
+    let id: String
+    let title: String
     let date: Date
     let textBlob: String
 }

@@ -22,6 +22,7 @@
 		56605CF124682E2600DF2E8C /* CreditCardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56605CF024682E2600DF2E8C /* CreditCardModel.swift */; };
 		56605CF324682E3200DF2E8C /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56605CF224682E3200DF2E8C /* Note.swift */; };
 		56605CF524682E4300DF2E8C /* Identity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56605CF424682E4300DF2E8C /* Identity.swift */; };
+		56EB35902469295C0004E9AB /* ItemTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56EB358F2469295C0004E9AB /* ItemTypes.swift */; };
 		7A950F894074454260596CA2 /* Pods_Passlock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F087414A13B57F1F1E10C017 /* Pods_Passlock.framework */; };
 /* End PBXBuildFile section */
 
@@ -60,6 +61,7 @@
 		56605CF024682E2600DF2E8C /* CreditCardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardModel.swift; sourceTree = "<group>"; };
 		56605CF224682E3200DF2E8C /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
 		56605CF424682E4300DF2E8C /* Identity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identity.swift; sourceTree = "<group>"; };
+		56EB358F2469295C0004E9AB /* ItemTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTypes.swift; sourceTree = "<group>"; };
 		85E2CDF5314B5D6102485A78 /* Pods_Passlock.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Passlock.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F087414A13B57F1F1E10C017 /* Pods_Passlock.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Passlock.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -162,6 +164,7 @@
 				56605CF024682E2600DF2E8C /* CreditCardModel.swift */,
 				56605CF224682E3200DF2E8C /* Note.swift */,
 				56605CF424682E4300DF2E8C /* Identity.swift */,
+				56EB358F2469295C0004E9AB /* ItemTypes.swift */,
 			);
 			path = "Data Templates";
 			sourceTree = "<group>";
@@ -336,6 +339,7 @@
 				5657EE5E24680EED000514B9 /* HomeView.swift in Sources */,
 				563689C72462C82400AB7455 /* AppView.swift in Sources */,
 				5657EE63246811EA000514B9 /* Bundle+Extensions.swift in Sources */,
+				56EB35902469295C0004E9AB /* ItemTypes.swift in Sources */,
 				56605CF124682E2600DF2E8C /* CreditCardModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

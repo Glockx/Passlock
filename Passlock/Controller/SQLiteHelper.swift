@@ -18,7 +18,9 @@ public class SQLiteHelper {
 
     // Init SQL table for login credentials
     let loginCredentialsTable = Table("loginCredentials")
-
+    let creditCardsTable = Table("creditCards")
+    let notesTable = Table("notes")
+    let identityTable = Table("identity")
     // MARK: Initializer of class
 
     init() {
@@ -41,35 +43,10 @@ public class SQLiteHelper {
             db.trace { print($0) }
         #endif
     }
-
-    func create() {
-        do {
-            let users = Table("users")
-            let id = Expression<Int>("id")
-            let email = Expression<String>("email")
-            let name = Expression<String?>("name")
-
-            try db.run(users.create(ifNotExists: true) { t in // CREATE TABLE "users" (
-                t.column(id, primaryKey: .autoincrement) //     "id" INTEGER PRIMARY KEY NOT NULL,
-                t.column(email) //     "email" TEXT NOT NULL,
-                t.column(name) //     "name" TEXT
-            }) // )
-
-            try db.run(users.insert(email <- "aalice@tac.com", name <- "Alice"))
-
-            for user in try db.prepare(users) {
-                print("id: \(user[id]), email: \(user[email]), name: \(user[name])")
-            }
-
-        } catch let error {
-            print(error)
-        }
-    }
-    
     // - Function: Create Table and Statement for each Data Template
     func createTablesForDataTypes() {
         do {
-            // MARK: Login Credentials Table and Expressions
+            // MARK: Login Credentials Expressions
 
             // Uniqe ID - Title of Data - Username - Password - Email - Name of the website.
 
@@ -77,8 +54,8 @@ public class SQLiteHelper {
             let loginCredentialsId = Expression<String>("id")
             let loginCredentialsTitle = Expression<String?>("title")
             let loginCredentialsUsername = Expression<String?>("username")
-            let loginCredentialsPassword = Expression<String?>("password")
             let loginCredentialsEmail = Expression<String?>("email")
+            let loginCredentialsPassword = Expression<String?>("password")
             let loginCredentialsWebsite = Expression<String?>("website")
 
             // Creating table for login credentials in database
@@ -91,31 +68,115 @@ public class SQLiteHelper {
                 t.column(loginCredentialsWebsite) // "website" TEXT,)
             })
 
+            // MARK: Credit Card Expressions
+
+            // Uniqe ID - Title of Credit Card - Bank Name - Card Name - Card Holder Name - Expiration Date: Date - Card Pin: Int - CVV: Int .
+
+            let creditCardId = Expression<String>("id")
+            let creditCardTitle = Expression<String?>("title")
+            let creditCardBankName = Expression<String?>("bankName")
+            let creditCardCardNumber = Expression<String?>("cardNumber")
+            let creditCardHolderName = Expression<String?>("cardHolderName")
+            let creditCardExpirationDate = Expression<Date?>("expirationDate")
+            let creditCardCardPin = Expression<Int?>("cardPin")
+            let creditCardCardCVV = Expression<Int?>("cardCvv")
+
+            // Creating table for credit cards in database
+            try db.run(creditCardsTable.create(ifNotExists: true) { t in // CREATE TABLE "creditCards" (
+                t.column(creditCardId, primaryKey: true) // "id" TEXT PRIMARY KEY NOT NULL,
+                t.column(creditCardTitle) // "title" TEXT,
+                t.column(creditCardBankName) // "bankName" TEXT,
+                t.column(creditCardCardNumber) // "cardNumber" TEXT,
+                t.column(creditCardHolderName) // "cardHolderName" TEXT,
+                t.column(creditCardExpirationDate) // "expirationDate" TEXT,
+                t.column(creditCardCardPin) // "cardPin" TEXT,
+                t.column(creditCardCardCVV) // cardCVV)
+            })
             
+            // MARK: Note Expressions
+            
+            //Uniqe ID - Title of Note - Date of Note - Text buffer.
+    
+            let noteId = Expression<String>("id")
+            let noteTitle = Expression<String?>("title")
+            let noteDate = Expression<Date>("date")
+            let noteTextBlob = Expression<String>("textBlob")
+            
+            // Creating table for notes in database
+            try db.run(notesTable.create(ifNotExists: true) { t in
+                 t.column(noteId, primaryKey: true)
+                t.column(noteTitle)
+                t.column(noteDate)
+                t.column(noteTextBlob)
+            })
+            
+           // MARK: Identity Expressions
+            
+           // Uniqe ID - Name - Middle Name - Last Name - Gender - Birth Date - National ID Number
+            
+            let identityId = Expression<String>("id")
+            let identityName = Expression<String>("name")
+            let identityMiddlename = Expression<String>("middleName")
+            let identityLastName = Expression<String>("lastName")
+            let identityGender = Expression<String>("gender")
+            let identityBirthDate = Expression<Date>("birthDate")
+            let identityNationalID = Expression<String>("nationalID")
+            
+            // Creating table for notes in database
+            try db.run(identityTable.create(ifNotExists: true) { t in
+                t.column(identityId, primaryKey: true)
+                t.column(identityName)
+                t.column(identityMiddlename)
+                t.column(identityLastName)
+                t.column(identityGender)
+                t.column(identityBirthDate)
+                t.column(identityNationalID)
+            })
             
         } catch let error {
             print(error)
         }
     }
 
-    // - Function: Inserting Login Credentials
-    func insertLoginCredentialItem(item: LoginItem) {
+    // - Function: Inserting Item to Database.
+    func insertItemToDB(item: Item, table: Table) {
         do {
-            try db.run(loginCredentialsTable.insert(item))
+            try db.run(table.insert(item))
         } catch let error {
             print(error)
         }
     }
 
     // - Function: Retrive and Print Login Credentials
-    func retrievingLoginCredentialItems() {
+    func retrieveItems(ItemType: ItemTypes) {
         do {
+            switch ItemType.rawValue {
             // Retrive each LoginItem from Database, Decode it as JSON(Codable) and attach it to LoginItem structure
-            let loadedUsers: [LoginItem] = try db.prepare(loginCredentialsTable).map { row in
-                try row.decode()
+            case "LoginCredentials":
+                let loadedUsers: [LoginItem] = try db.prepare(loginCredentialsTable).map { row in
+                    try row.decode()
+                }
+                loadedUsers.forEach({ print($0) })
+
+            case "CreditCard":
+                let loadedUsers: [CreditCardItem] = try db.prepare(creditCardsTable).map { row in
+                    try row.decode()
+                }
+                loadedUsers.forEach({ print($0) })
+            case "Note":
+                let loadedUsers: [NoteItem] = try db.prepare(notesTable).map { row in
+                    try row.decode()
+                }
+                loadedUsers.forEach({ print($0) })
+            case "Identity":
+                let loadedUsers: [IdentityItem] = try db.prepare(identityTable).map { row in
+                    try row.decode()
+                }
+                loadedUsers.forEach({ print($0) })
+
+            default:
+                return
             }
-            
-            loadedUsers.forEach({print($0)})
 
         } catch let error {
             print(error)
@@ -156,3 +217,30 @@ public class SQLiteHelper {
         return fileURL
     }
 }
+
+
+
+
+//            // Accessing SQLiteHelper from Delegetion of app
+//            let delegate = UIApplication.shared.delegate as? AppDelegate
+//            let sql = delegate.self?.SQLite
+//
+//            let loginTest = LoginItem(id: UUID().uuidString, title: "facebook", username: "nicat754", email: "nicat754@gmail.com", password: "123", website: "facebook.com")
+//            let CreditCardTest = CreditCardItem(id: UUID().uuidString, title: "test", bankName: "Hana", cardNumber: "125465451", cardHolderName: "Nijat", expirationDate: Date(), cardPin: 64, cardCvv: 4784)
+//            let NoteTest = NoteItem(id: UUID().uuidString, title: "Salam", date: Date(), textBlob: """
+//Every Connection comes equipped with its own serial queue for statement execution and can be safely accessed across threads. Threads that open transactions and savepoints will block other threads from executing statements while the transaction is open.
+//""")
+//            let IdentityTest = IdentityItem(id: UUID().uuidString, name: "Nijat", middleName: "", lastName: "Muzaffarli", gender: "Male", birthDate: Date(), nationalID: "1278s4fas")
+//            
+//            sql?.insertItemToDB(item: loginTest, table: sql!.loginCredentialsTable)
+//            sql?.retrieveItems(ItemType: ItemTypes.LoginCredentials)
+//            
+//            
+//            sql?.insertItemToDB(item: CreditCardTest, table: sql!.creditCardsTable)
+//            sql?.retrieveItems(ItemType: ItemTypes.CreditCard)
+//            
+//            sql?.insertItemToDB(item: NoteTest, table: sql!.notesTable)
+//            sql?.retrieveItems(ItemType: ItemTypes.Note)
+//            
+//            sql?.insertItemToDB(item: IdentityTest, table: sql!.identityTable)
+//            sql?.retrieveItems(ItemType: ItemTypes.Identity)
