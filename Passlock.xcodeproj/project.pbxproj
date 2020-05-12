@@ -22,7 +22,9 @@
 		56605CF124682E2600DF2E8C /* CreditCardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56605CF024682E2600DF2E8C /* CreditCardModel.swift */; };
 		56605CF324682E3200DF2E8C /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56605CF224682E3200DF2E8C /* Note.swift */; };
 		56605CF524682E4300DF2E8C /* Identity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56605CF424682E4300DF2E8C /* Identity.swift */; };
+		567E55A8246A5A39006EEC49 /* ItemButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567E55A7246A5A39006EEC49 /* ItemButton.swift */; };
 		56EB35902469295C0004E9AB /* ItemTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56EB358F2469295C0004E9AB /* ItemTypes.swift */; };
+		56EB359324696A6A0004E9AB /* KeyChainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56EB359224696A6A0004E9AB /* KeyChainHelper.swift */; };
 		7A950F894074454260596CA2 /* Pods_Passlock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F087414A13B57F1F1E10C017 /* Pods_Passlock.framework */; };
 /* End PBXBuildFile section */
 
@@ -61,7 +63,10 @@
 		56605CF024682E2600DF2E8C /* CreditCardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditCardModel.swift; sourceTree = "<group>"; };
 		56605CF224682E3200DF2E8C /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
 		56605CF424682E4300DF2E8C /* Identity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identity.swift; sourceTree = "<group>"; };
+		567E55A7246A5A39006EEC49 /* ItemButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemButton.swift; sourceTree = "<group>"; };
 		56EB358F2469295C0004E9AB /* ItemTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTypes.swift; sourceTree = "<group>"; };
+		56EB3591246966540004E9AB /* Passlock.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Passlock.entitlements; sourceTree = "<group>"; };
+		56EB359224696A6A0004E9AB /* KeyChainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChainHelper.swift; sourceTree = "<group>"; };
 		85E2CDF5314B5D6102485A78 /* Pods_Passlock.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Passlock.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F087414A13B57F1F1E10C017 /* Pods_Passlock.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Passlock.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -108,10 +113,11 @@
 		563689C12462C82400AB7455 /* Passlock */ = {
 			isa = PBXGroup;
 			children = (
+				56EB3591246966540004E9AB /* Passlock.entitlements */,
 				56605CF724682E8300DF2E8C /* Controller */,
 				5657EE6424681750000514B9 /* Model */,
-				5657EE61246811D4000514B9 /* Support Files */,
 				563689D62462C85900AB7455 /* Views */,
+				5657EE61246811D4000514B9 /* Support Files */,
 				563689C22462C82400AB7455 /* AppDelegate.swift */,
 				563689C42462C82400AB7455 /* SceneDelegate.swift */,
 				563689C82462C82A00AB7455 /* Assets.xcassets */,
@@ -134,9 +140,10 @@
 		563689D62462C85900AB7455 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				563689C62462C82400AB7455 /* AppView.swift */,
+				567E55A6246A5A14006EEC49 /* CustomViews+Modifiers */,
 				5657EE5D24680EED000514B9 /* HomeView.swift */,
 				5657EE5F24680F06000514B9 /* SettingsView.swift */,
+				563689C62462C82400AB7455 /* AppView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -173,8 +180,17 @@
 			isa = PBXGroup;
 			children = (
 				5622FAF924630826002BD6C2 /* SQLiteHelper.swift */,
+				56EB359224696A6A0004E9AB /* KeyChainHelper.swift */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		567E55A6246A5A14006EEC49 /* CustomViews+Modifiers */ = {
+			isa = PBXGroup;
+			children = (
+				567E55A7246A5A39006EEC49 /* ItemButton.swift */,
+			);
+			path = "CustomViews+Modifiers";
 			sourceTree = "<group>";
 		};
 		D4C3F0BC8A4DF14AFCA8621E /* Pods */ = {
@@ -331,6 +347,7 @@
 			files = (
 				563689C32462C82400AB7455 /* AppDelegate.swift in Sources */,
 				56605CEF24682DF500DF2E8C /* LoginCredentials.swift in Sources */,
+				567E55A8246A5A39006EEC49 /* ItemButton.swift in Sources */,
 				5622FAFA24630826002BD6C2 /* SQLiteHelper.swift in Sources */,
 				563689C52462C82400AB7455 /* SceneDelegate.swift in Sources */,
 				5657EE6024680F06000514B9 /* SettingsView.swift in Sources */,
@@ -340,6 +357,7 @@
 				563689C72462C82400AB7455 /* AppView.swift in Sources */,
 				5657EE63246811EA000514B9 /* Bundle+Extensions.swift in Sources */,
 				56EB35902469295C0004E9AB /* ItemTypes.swift in Sources */,
+				56EB359324696A6A0004E9AB /* KeyChainHelper.swift in Sources */,
 				56605CF124682E2600DF2E8C /* CreditCardModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -477,6 +495,7 @@
 			baseConfigurationReference = 11F6EE08A4637BA5987B6B66 /* Pods-Passlock.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Passlock/Passlock.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Passlock/Preview Content\"";
 				DEVELOPMENT_TEAM = 7N4RCPJ386;
@@ -501,6 +520,7 @@
 			baseConfigurationReference = 48AE9EE089E679DDA7A89A18 /* Pods-Passlock.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Passlock/Passlock.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Passlock/Preview Content\"";
 				DEVELOPMENT_TEAM = 7N4RCPJ386;

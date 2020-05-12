@@ -10,8 +10,7 @@ import Foundation
 
 // Intializing Note Data type which supports:
 // Uniqe ID - Title of Note - Date of Note - Text buffer.
-struct NoteItem: Item
-{
+struct NoteItem: Item {
     let id: String
     let title: String
     let date: Date

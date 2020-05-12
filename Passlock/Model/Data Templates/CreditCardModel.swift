@@ -8,12 +8,10 @@
 
 import Foundation
 
-
 // Intializing Credit Card Data type which supports:
 // Uniqe ID - Title of Credit Card - Bank Name - Card Name - Card Holder Name - Expiration Date: Date - Card Pin: Int64 - CVV: Int64 .
-struct CreditCardItem: Item
-{
-    let id:String
+struct CreditCardItem: Item {
+    let id: String
     let title: String
     let bankName: String
     let cardNumber: String

@@ -147,7 +147,7 @@ public class SQLiteHelper {
         }
     }
 
-    // - Function: Retrive and Print Login Credentials
+    // - Function: Retrieve and Print Login Credentials
     func retrieveItems(ItemType: ItemTypes) {
         do {
             switch ItemType.rawValue {

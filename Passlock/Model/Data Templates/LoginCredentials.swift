@@ -6,8 +6,8 @@
 //  Copyright © 2020 Muzaffarli Nijat. All rights reserved.
 //
 
-import Foundation
 import CryptoKit
+import Foundation
 
 // Intializing Login Credentials Data type which supports:
 // Uniqe ID - Title of Data - Username - Email - Password - Name of the website.
@@ -18,5 +18,4 @@ struct LoginItem: Item {
     let email: String
     let password: String
     let website: String
-    
 }

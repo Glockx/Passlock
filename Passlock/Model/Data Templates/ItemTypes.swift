@@ -7,15 +7,14 @@
 //
 
 import Foundation
+import SQLite
 
 protocol Item: Codable {
 }
 
-
-enum ItemTypes: String{
-    
-    case LoginCredentials = "LoginCredentials"
-    case CreditCard = "CreditCard"
-    case Note = "Note"
-    case Identity = "Identity"
+enum ItemTypes: String {
+    case LoginCredentials
+    case CreditCard
+    case Note
+    case Identity
 }

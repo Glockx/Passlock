@@ -6,15 +6,14 @@
 //  Copyright © 2020 Muzaffarli Nijat. All rights reserved.
 //
 
-import CryptoKit
 import Foundation
 import SwiftUI
-
+import Valet
 
 struct AppView: View {
     // Current selected Tab item number
     @State var selectedView = 0
-
+    
     var body: some View {
         // Setting Main view of application with Home and Setting view
         TabView(selection: $selectedView) {
@@ -30,12 +29,8 @@ struct AppView: View {
                     Text("Settings")
                 }.tag(1)
         }.onAppear(perform: {
-            let test = "nicat"
-            
-            let data = test.data(using: .utf8)!
-            let hash = SHA512.hash(data: data)
-            
-            print(hash.map { String(format: "%02hhx", $0) }.joined())
+//            KeyChainHelper().storeSalties(data: "nicat")
+//            print(KeyChainHelper().retrieveSalties())
         })
     }
 }
@@ -43,6 +38,6 @@ struct AppView: View {
 
 struct AppView_Previews: PreviewProvider {
     static var previews: some View {
-        AppView()
+        AppView().environment(\.colorScheme, .dark)
     }
 }
