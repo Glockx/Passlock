@@ -28,10 +28,8 @@ struct AppView: View {
                     Image(systemName: "gear")
                     Text("Settings")
                 }.tag(1)
-        }.onAppear(perform: {
-//            KeyChainHelper().storeSalties(data: "nicat")
-//            print(KeyChainHelper().retrieveSalties())
-        })
+        }.accentColor(.orange)
+         
     }
 }
 

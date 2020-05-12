@@ -6,38 +6,55 @@
 //  Copyright © 2020 Muzaffarli Nijat. All rights reserved.
 //
 
+import CryptoKit
 import Foundation
 import Valet
-import CryptoKit
 
-public class KeyChainHelper{
+public class KeyChainHelper
+{
     
     // Init Biometric SecureEnclave of Keychain Access with Valet framework
-    static let BiometricValet = SecureEnclaveValet.valet(with: Identifier(nonEmpty: "Main")!, accessControl: .biometricAny)
-    
+    static let BiometricValet = SinglePromptSecureEnclaveValet.valet(with: Identifier(nonEmpty: "Main")!, accessControl: .biometricAny)
+
     // Init  SecureEnclave of Keychain Access with Valet framework
     static let valet = Valet.valet(with: Identifier(nonEmpty: "Main")!, accessibility: .whenUnlocked)
-    
-    
+
     // - Function: Writing salt of hashing operations to the SecureEnclave.
-    func storeSalties(data: String)
-    {
-        // Convert String to Data type with UTF8 encoding
-        let data = data.data(using: .utf8)!
-        // Hashing data with SHA512
-        let hash = SHA512.hash(data: data)
-        // Converting hash to string
-        let key = hash.map { String(format: "%02hhx", $0) }.joined()
+    func storeKey(data: String) {
         // Set Key
-        KeyChainHelper.BiometricValet.set(string: key, forKey: "IOSVersion")
+        KeyChainHelper.valet.set(string: data, forKey: "Version")
+    }
+
+    // - Function: Retrieving salt of hashing operations from the SecureEnclave.
+    func retrieveKey() -> String {
+        let key = KeyChainHelper.valet.string(forKey: "Version")
+        return key!
+    }
+
+    // MARK: Biometric Functions
+    
+    // - Function: Writing masterKey of DB to the SecureEnclave with Biometric Validation.
+    func storeKeyBioMetric(data: String)
+    {
+        // Set Key
+        KeyChainHelper.BiometricValet.set(string: data, forKey: "Version")
     }
     
-    // - Function: Retrieving salt of hashing operations from the SecureEnclave.
-    func retrieveSalties() -> String
-    {
-        //var key = KeyChainHelper.BiometricValet.string(forKey: "IOSVersion", withPrompt: "Retrieving encrpytion key")
-        let keyy = KeyChainHelper.valet.string(forKey: "IOSVersion")
-        //print(key)
-        return keyy!
+
+    // - Function: Retrieving key of DB from the SecureEnclave with Biometric Validation.
+    func retrieveKeyBioMetric() -> String {
+        let resultString: String
+        switch KeyChainHelper.BiometricValet.string(forKey: "Version", withPrompt: "Use BiometricID to retrieve password")
+        {
+            case let .success(password):
+                resultString = password
+                
+            case .userCancelled:
+                resultString = "user cancelled TouchID"
+                
+            case .itemNotFound:
+                resultString = "object not found"
+        }
+        return resultString
     }
 }

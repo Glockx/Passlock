@@ -19,27 +19,28 @@ struct HomeView: View {
                 }) {
                     Image(systemName: "plus.circle.fill")
                         .font(.title)
+
                 }).sheet(isPresented: $showingDetail) {
                     ItemListView()
                 }
         }
-    }
 }
 
 struct ItemListView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @State private var showModal = false
     var body: some View {
         NavigationView {
-            ZStack{
-                 
+            ZStack {
                 HStack(spacing: 50) {
                     VStack(spacing: 50) {
-                        ItemButton(name: "Login", imageName: "person.2.square.stack.fill")
-                        ItemButton(name: "Debt Card", imageName: "creditcard.fill")
+                        ItemButton(name: "Login", imageName: "person.2.square.stack.fill", destination: LoginItemView())
+                        
+                        ItemButton(name: "Debt Card", imageName: "creditcard.fill", destination: LoginItemView())
                     }
                     VStack(spacing: 50) {
-                        ItemButton(name: "Identity", imageName: "person.crop.square.fill")
-                        ItemButton(name: "Note", imageName: "doc.text.fill")
+                        ItemButton(name: "Identity", imageName: "person.crop.square.fill", destination: LoginItemView())
+                        ItemButton(name: "Note", imageName: "doc.text.fill", destination: LoginItemView())
                     }
                 }
             }
@@ -47,8 +48,9 @@ struct ItemListView: View {
             .navigationBarItems(trailing: Button(action: {
                 self.presentationMode.wrappedValue.dismiss()
                 }, label: {
-                    Text("Done")
+                    Text("Done").foregroundColor(.orange)
             }))
+        }
         }
     }
 }

@@ -19,8 +19,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // With initialize of SQLiteHelper class, it will automatically connect to DB when the app starts.
         SQLite = SQLiteHelper()
         SQLite.createTablesForDataTypes()
-        
-        
         return true
     }
 
