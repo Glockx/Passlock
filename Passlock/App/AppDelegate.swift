@@ -7,18 +7,26 @@
 //
 
 import UIKit
+import IQKeyboardManagerSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    var SQLite: SQLiteHelper!
+    var SQLite: SQLiteManager!
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
        
         // With initialize of SQLiteHelper class, it will automatically connect to DB when the app starts.
-        SQLite = SQLiteHelper()
+        SQLite = SQLiteManager()
         SQLite.createTablesForDataTypes()
+        
+        // Framework for resloving keyboard frame confilict with views on display
+        IQKeyboardManager.shared.enable = true
+        IQKeyboardManager.shared.enableAutoToolbar = false
+        IQKeyboardManager.shared.shouldShowToolbarPlaceholder = false
+        IQKeyboardManager.shared.shouldResignOnTouchOutside = true
+        IQKeyboardManager.shared.previousNextDisplayMode = .alwaysHide
         return true
     }
 

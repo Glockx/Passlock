@@ -12,7 +12,7 @@ import SQLite
 // MARK: SQLite Class
 
 // SQLiteHelper is controller and model class of application for handling all SQLite functions with much simple and clean way.
-public class SQLiteHelper {
+public class SQLiteManager {
     var path: String!
     var db: Connection!
 
@@ -21,6 +21,7 @@ public class SQLiteHelper {
     let creditCardsTable = Table("creditCards")
     let notesTable = Table("notes")
     let identityTable = Table("identity")
+
     // MARK: Initializer of class
 
     init() {
@@ -43,6 +44,7 @@ public class SQLiteHelper {
             db.trace { print($0) }
         #endif
     }
+
     // - Function: Create Table and Statement for each Data Template
     func createTablesForDataTypes() {
         do {
@@ -92,28 +94,28 @@ public class SQLiteHelper {
                 t.column(creditCardCardPin) // "cardPin" TEXT,
                 t.column(creditCardCardCVV) // cardCVV)
             })
-            
+
             // MARK: Note Expressions
-            
-            //Uniqe ID - Title of Note - Date of Note - Text buffer.
-    
+
+            // Uniqe ID - Title of Note - Date of Note - Text buffer.
+
             let noteId = Expression<String>("id")
             let noteTitle = Expression<String?>("title")
             let noteDate = Expression<Date>("date")
             let noteTextBlob = Expression<String>("textBlob")
-            
+
             // Creating table for notes in database
             try db.run(notesTable.create(ifNotExists: true) { t in
-                 t.column(noteId, primaryKey: true)
+                t.column(noteId, primaryKey: true)
                 t.column(noteTitle)
                 t.column(noteDate)
                 t.column(noteTextBlob)
             })
-            
-           // MARK: Identity Expressions
-            
-           // Uniqe ID - Name - Middle Name - Last Name - Gender - Birth Date - National ID Number
-            
+
+            // MARK: Identity Expressions
+
+            // Uniqe ID - Name - Middle Name - Last Name - Gender - Birth Date - National ID Number
+
             let identityId = Expression<String>("id")
             let identityName = Expression<String>("name")
             let identityMiddlename = Expression<String>("middleName")
@@ -121,7 +123,7 @@ public class SQLiteHelper {
             let identityGender = Expression<String>("gender")
             let identityBirthDate = Expression<Date>("birthDate")
             let identityNationalID = Expression<String>("nationalID")
-            
+
             // Creating table for notes in database
             try db.run(identityTable.create(ifNotExists: true) { t in
                 t.column(identityId, primaryKey: true)
@@ -132,7 +134,7 @@ public class SQLiteHelper {
                 t.column(identityBirthDate)
                 t.column(identityNationalID)
             })
-            
+
         } catch let error {
             print(error)
         }
@@ -217,30 +219,3 @@ public class SQLiteHelper {
         return fileURL
     }
 }
-
-
-
-
-//            // Accessing SQLiteHelper from Delegetion of app
-//            let delegate = UIApplication.shared.delegate as? AppDelegate
-//            let sql = delegate.self?.SQLite
-//
-//            let loginTest = LoginItem(id: UUID().uuidString, title: "facebook", username: "nicat754", email: "nicat754@gmail.com", password: "123", website: "facebook.com")
-//            let CreditCardTest = CreditCardItem(id: UUID().uuidString, title: "test", bankName: "Hana", cardNumber: "125465451", cardHolderName: "Nijat", expirationDate: Date(), cardPin: 64, cardCvv: 4784)
-//            let NoteTest = NoteItem(id: UUID().uuidString, title: "Salam", date: Date(), textBlob: """
-//Every Connection comes equipped with its own serial queue for statement execution and can be safely accessed across threads. Threads that open transactions and savepoints will block other threads from executing statements while the transaction is open.
-//""")
-//            let IdentityTest = IdentityItem(id: UUID().uuidString, name: "Nijat", middleName: "", lastName: "Muzaffarli", gender: "Male", birthDate: Date(), nationalID: "1278s4fas")
-//            
-//            sql?.insertItemToDB(item: loginTest, table: sql!.loginCredentialsTable)
-//            sql?.retrieveItems(ItemType: ItemTypes.LoginCredentials)
-//            
-//            
-//            sql?.insertItemToDB(item: CreditCardTest, table: sql!.creditCardsTable)
-//            sql?.retrieveItems(ItemType: ItemTypes.CreditCard)
-//            
-//            sql?.insertItemToDB(item: NoteTest, table: sql!.notesTable)
-//            sql?.retrieveItems(ItemType: ItemTypes.Note)
-//            
-//            sql?.insertItemToDB(item: IdentityTest, table: sql!.identityTable)
-//            sql?.retrieveItems(ItemType: ItemTypes.Identity)

@@ -22,7 +22,7 @@ struct LabelTextField: View {
                 .padding(.all,10)
                 .frame(height: 40)
                 .border(Color.orange,width: 3)
-            .cornerRadius(2)
+            .cornerRadius(3)
         }
         .padding(.horizontal,15)
     }
@@ -42,7 +42,7 @@ struct SecureLabelTextField: View {
                 .padding(.all,10)
                 .frame(height: 40)
             .border(Color.orange,width: 3)
-            .cornerRadius(2)
+            .cornerRadius(3)
         }
         .padding(.horizontal,15)
     }
