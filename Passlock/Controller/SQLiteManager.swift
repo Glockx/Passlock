@@ -40,9 +40,9 @@ public class SQLiteManager {
             print(error)
         }
         // Enable built-in logging system of SQLite framework.
-        #if DEBUG
-            db.trace { print($0) }
-        #endif
+//        #if DEBUG
+//            db.trace { print($0) }
+//        #endif
     }
 
     // - Function: Create Table and Statement for each Data Template
@@ -53,6 +53,8 @@ public class SQLiteManager {
             // Uniqe ID - Title of Data - Username - Password - Email - Name of the website.
 
             // Creating Expression for each variable of LoginCredentials structure.
+
+            let loginCredentialsKind = Expression<String>("kind")
             let loginCredentialsId = Expression<String>("id")
             let loginCredentialsTitle = Expression<String?>("title")
             let loginCredentialsUsername = Expression<String?>("username")
@@ -62,6 +64,7 @@ public class SQLiteManager {
 
             // Creating table for login credentials in database
             try db.run(loginCredentialsTable.create(ifNotExists: true) { t in // CREATE TABLE "users" (
+                t.column(loginCredentialsKind) // "kind" TEXT,
                 t.column(loginCredentialsId, primaryKey: true) // "id" TEXT PRIMARY KEY NOT NULL,
                 t.column(loginCredentialsTitle) // "title" TEXT,
                 t.column(loginCredentialsUsername) // "username" TEXT,
@@ -74,6 +77,7 @@ public class SQLiteManager {
 
             // Uniqe ID - Title of Credit Card - Bank Name - Card Name - Card Holder Name - Expiration Date: Date - Card Pin: Int - CVV: Int .
 
+            let creditCardKind = Expression<String>("kind")
             let creditCardId = Expression<String>("id")
             let creditCardTitle = Expression<String?>("title")
             let creditCardBankName = Expression<String?>("bankName")
@@ -85,6 +89,7 @@ public class SQLiteManager {
 
             // Creating table for credit cards in database
             try db.run(creditCardsTable.create(ifNotExists: true) { t in // CREATE TABLE "creditCards" (
+                t.column(creditCardKind) // "kind" TEXT,
                 t.column(creditCardId, primaryKey: true) // "id" TEXT PRIMARY KEY NOT NULL,
                 t.column(creditCardTitle) // "title" TEXT,
                 t.column(creditCardBankName) // "bankName" TEXT,
@@ -99,6 +104,7 @@ public class SQLiteManager {
 
             // Uniqe ID - Title of Note - Date of Note - Text buffer.
 
+            let noteKind = Expression<String>("kind")
             let noteId = Expression<String>("id")
             let noteTitle = Expression<String?>("title")
             let noteDate = Expression<Date>("date")
@@ -106,6 +112,7 @@ public class SQLiteManager {
 
             // Creating table for notes in database
             try db.run(notesTable.create(ifNotExists: true) { t in
+                t.column(noteKind)
                 t.column(noteId, primaryKey: true)
                 t.column(noteTitle)
                 t.column(noteDate)
@@ -115,7 +122,7 @@ public class SQLiteManager {
             // MARK: Identity Expressions
 
             // Uniqe ID - Name - Middle Name - Last Name - Gender - Birth Date - National ID Number
-
+            let identityKind = Expression<String>("kind")
             let identityId = Expression<String>("id")
             let identityName = Expression<String>("name")
             let identityMiddlename = Expression<String>("middleName")
@@ -126,6 +133,7 @@ public class SQLiteManager {
 
             // Creating table for notes in database
             try db.run(identityTable.create(ifNotExists: true) { t in
+                t.column(identityKind)
                 t.column(identityId, primaryKey: true)
                 t.column(identityName)
                 t.column(identityMiddlename)
@@ -141,7 +149,7 @@ public class SQLiteManager {
     }
 
     // - Function: Inserting Item to Database.
-    func insertItemToDB(item: Item, table: Table) {
+    func insertItemToDB<T: Item>(item: T, table: Table) {
         do {
             try db.run(table.insert(item))
         } catch let error {
@@ -150,39 +158,72 @@ public class SQLiteManager {
     }
 
     // - Function: Retrieve and Print Login Credentials
-    func retrieveItems(ItemType: ItemTypes) {
+    func retrieveItems<T: Item>(item: T) -> [Item]
+    {
+        var result = [Item]()
         do {
-            switch ItemType.rawValue {
+            switch item.kind {
             // Retrive each LoginItem from Database, Decode it as JSON(Codable) and attach it to LoginItem structure
-            case "LoginCredentials":
-                let loadedUsers: [LoginItem] = try db.prepare(loginCredentialsTable).map { row in
+            case "LoginItem":
+                let loadedUsers: [T] = try db.prepare(loginCredentialsTable).map { row in
                     try row.decode()
                 }
-                loadedUsers.forEach({ print($0) })
+               
+                result.append(contentsOf: loadedUsers)
 
-            case "CreditCard":
-                let loadedUsers: [CreditCardItem] = try db.prepare(creditCardsTable).map { row in
+            case "CreditCardItem":
+                let loadedUsers: [T] = try db.prepare(creditCardsTable).map { row in
                     try row.decode()
                 }
-                loadedUsers.forEach({ print($0) })
-            case "Note":
-                let loadedUsers: [NoteItem] = try db.prepare(notesTable).map { row in
+                
+                result.append(contentsOf: loadedUsers)
+
+            case "NoteItem":
+                let loadedUsers: [T] = try db.prepare(notesTable).map { row in
                     try row.decode()
                 }
-                loadedUsers.forEach({ print($0) })
-            case "Identity":
-                let loadedUsers: [IdentityItem] = try db.prepare(identityTable).map { row in
+                
+                result.append(contentsOf: loadedUsers)
+
+            case "IdentityItem":
+                let loadedUsers: [T] = try db.prepare(identityTable).map { row in
                     try row.decode()
                 }
-                loadedUsers.forEach({ print($0) })
+                
+                result.append(contentsOf: loadedUsers)
 
             default:
-                return
+                result = []
             }
 
         } catch let error {
             print(error)
         }
+        return result
+    }
+
+    // - Function: Retrive all Items from DB
+    func retrieveAllItems<T: Item>() -> Array<T>{
+        let tables = [loginCredentialsTable, creditCardsTable, notesTable, identityTable]
+        var result: Array<T> = []
+        // Check items from all database
+        tables.forEach { table in
+
+            do {
+                try db.prepare(table).map { row in
+                    result.removeAll()
+                    let itemType = try row.get(Expression<String>("kind"))
+                    //retrive items from table, convert it to suitable type
+                    let item: T = retrieveItems(item: ItemTypes(rawValue: itemType)! as! T) as! T
+                    // add coverted item to array of table contents
+                    result.append(item)
+                }
+                
+            } catch let err {
+                print(err)
+            }
+        }
+        return result
     }
 
     // MARK: Helper Functions

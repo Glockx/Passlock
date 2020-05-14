@@ -8,55 +8,61 @@
 
 import SwiftUI
 
-struct HomeView: View {
+
+
+
+
+struct HomeView: View
+{
+    
     @State var showingDetail = false
+    @State private var allItems = [Item]()
+    @State private var LoginItems = [LoginItem]()
     var body: some View {
         NavigationView {
-            Text("Home")
-                .navigationBarTitle("Home", displayMode: .automatic)
-                .navigationBarItems(trailing: Button(action: {
-                    self.showingDetail.toggle()
-                }) {
-                    Image(systemName: "plus.circle.fill")
-                        .font(.title)
-
-                }).sheet(isPresented: $showingDetail) {
-                    ItemListView()
-                }
-        }
-}
-
-struct ItemListView: View {
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    @State private var showModal = false
-    var body: some View {
-        NavigationView {
-            ZStack {
-                HStack(spacing: 50) {
-                    VStack(spacing: 50) {
-                        ItemButton(name: "Login", imageName: "person.2.square.stack.fill", destination: LoginItemView())
-                        
-                        ItemButton(name: "Debt Card", imageName: "creditcard.fill", destination: LoginItemView())
-                    }
-                    VStack(spacing: 50) {
-                        ItemButton(name: "Identity", imageName: "person.crop.square.fill", destination: LoginItemView())
-                        ItemButton(name: "Note", imageName: "doc.text.fill", destination: LoginItemView())
-                    }
-                }
-            }
-            .navigationBarTitle(Text("New Item"), displayMode: .inline)
+           Text("Home")
+            .navigationBarTitle("Home", displayMode: .automatic)
             .navigationBarItems(trailing: Button(action: {
-                self.presentationMode.wrappedValue.dismiss()
-                }, label: {
-                    Text("Done").foregroundColor(.orange)
-            }))
-        }
-        }
-    }
-}
+                self.showingDetail.toggle()
+            }) {
+                Image(systemName: "plus.circle.fill")
+                    .font(.title)
 
-struct HomeView_Previews: PreviewProvider {
-    static var previews: some View {
-        HomeView().environment(\.colorScheme, .dark)
+            }).sheet(isPresented: $showingDetail) {
+                ItemCreation()
+            }
+        }.onAppear {
+            let delegate = UIApplication.shared.delegate as! AppDelegate
+            let SQLManager = delegate.SQLite
+
+            self.allItems = SQLManager?.retrieveAllItems() as! [Item]
+        }
+    }
+    
+    
+     //- Function: Build Cell For Each type of Item
+//    func buildView<T: Item>(types: ItemTypes,item: T) -> AnyView
+//    {
+//
+//        switch types {
+//        case .LoginItem:
+//            Item
+//            return AnyView(LoginItemCell(title: "fa", username: "String"))
+//        case "CreditCardItem": return AnyView(LoginItemCell())
+//        case "NoteItem" :return AnyView(LoginItemCell())
+//        case "IdentityItem": return AnyView(LoginItemCell())
+//        default: return AnyView(EmptyView())
+//        }
+//    }
+
+    struct HomeView_Previews: PreviewProvider {
+        static var previews: some View {
+            HomeView().environment(\.colorScheme, .dark)
+        }
     }
 }
+  extension ForEach where Data.Element: Hashable, ID == Data.Element, Content: View {
+      init(values: Data, content: @escaping (Data.Element) -> Content) {
+          self.init(values, id: \.self, content: content)
+      }
+  }

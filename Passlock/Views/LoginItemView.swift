@@ -54,13 +54,13 @@ struct LoginItemView: View {
                 Button(action: {
                     // Function: Create LoginItem with user input and push to DB
                     let item = LoginItem(id: UUID().uuidString, title: self.title, username: self.username, email: self.email, password: self.password, website: self.website)
-
+                    
                     let delegate = UIApplication.shared.delegate as! AppDelegate
                     let SQLManager = delegate.SQLite
 
                     // Push item to DB
                     SQLManager?.insertItemToDB(item: item, table: SQLManager!.loginCredentialsTable)
-
+                    
                     // Dissmis Self
                     self.presentationMode.wrappedValue.dismiss()
                     
