@@ -6,21 +6,21 @@
 //  Copyright © 2020 Muzaffarli Nijat. All rights reserved.
 //
 
-import UIKit
 import IQKeyboardManagerSwift
+import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
     var SQLite: SQLiteManager!
-
+    var Store: ItemStore!
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-       
+
+        Store = ItemStore()
         // With initialize of SQLiteHelper class, it will automatically connect to DB when the app starts.
         SQLite = SQLiteManager()
         SQLite.createTablesForDataTypes()
-        
+
         // Framework for resloving keyboard frame confilict with views on display
         IQKeyboardManager.shared.enable = true
         IQKeyboardManager.shared.enableAutoToolbar = false
@@ -44,4 +44,3 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
 }
-

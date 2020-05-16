@@ -8,19 +8,15 @@
 
 import SwiftUI
 
-
-
-
-
-struct HomeView: View
-{
-    
+struct HomeView: View {
     @State var showingDetail = false
-    @State private var allItems = [Item]()
-    @State private var LoginItems = [LoginItem]()
+    @ObservedObject var itemRepo: ItemStore = ItemStore.shared
     var body: some View {
         NavigationView {
-           Text("Home")
+            List(itemRepo.loginItems) { item in
+                self.buildView(item: item)
+            }
+            .listStyle(GroupedListStyle())
             .navigationBarTitle("Home", displayMode: .automatic)
             .navigationBarItems(trailing: Button(action: {
                 self.showingDetail.toggle()
@@ -35,25 +31,22 @@ struct HomeView: View
             let delegate = UIApplication.shared.delegate as! AppDelegate
             let SQLManager = delegate.SQLite
 
-            self.allItems = SQLManager?.retrieveAllItems() as! [Item]
+            SQLManager?.retrieveItems()
+            self.itemRepo.allItems = [self.itemRepo.creditCardItems, self.itemRepo.identityItems, self.itemRepo.loginItems, self.itemRepo.noteItems]
         }
     }
-    
-    
-     //- Function: Build Cell For Each type of Item
-//    func buildView<T: Item>(types: ItemTypes,item: T) -> AnyView
-//    {
-//
-//        switch types {
-//        case .LoginItem:
-//            Item
-//            return AnyView(LoginItemCell(title: "fa", username: "String"))
+
+    // - Function: Build Cell For Each type of Item
+    func buildView<T: Item>(item: T) -> AnyView {
+        switch item.kind {
+        case "LoginItem":
+            return AnyView(NavigationLink(destination: LoginItemDetailsView(LoginItem: item as! LoginItem)){LoginItemCell(item: item as! LoginItem)})
 //        case "CreditCardItem": return AnyView(LoginItemCell())
 //        case "NoteItem" :return AnyView(LoginItemCell())
 //        case "IdentityItem": return AnyView(LoginItemCell())
-//        default: return AnyView(EmptyView())
-//        }
-//    }
+        default: return AnyView(EmptyView())
+        }
+    }
 
     struct HomeView_Previews: PreviewProvider {
         static var previews: some View {
@@ -61,8 +54,3 @@ struct HomeView: View
         }
     }
 }
-  extension ForEach where Data.Element: Hashable, ID == Data.Element, Content: View {
-      init(values: Data, content: @escaping (Data.Element) -> Content) {
-          self.init(values, id: \.self, content: content)
-      }
-  }

@@ -8,6 +8,7 @@
 
 import Foundation
 import SQLite
+import SwiftUI
 
 // MARK: SQLite Class
 
@@ -15,7 +16,7 @@ import SQLite
 public class SQLiteManager {
     var path: String!
     var db: Connection!
-
+    @ObservedObject var itemStore: ItemStore = ItemStore.shared
     // Init SQL table for login credentials
     let loginCredentialsTable = Table("loginCredentials")
     let creditCardsTable = Table("creditCards")
@@ -28,7 +29,7 @@ public class SQLiteManager {
         // Binding empty path string with path of database file
         path = createDBFilePath(fileName: "db.sqlite3")
 
-        removeDB(localPathName: "db.sqlite3")
+        //removeDB(localPathName: "db.sqlite3")
         // Database connections are established using the Connection class. A connection is initialized with a path to a database. SQLite will attempt to create the database file if it does not already exist.
         do {
             db = try Connection(.uri(path), readonly: false)
@@ -149,7 +150,7 @@ public class SQLiteManager {
     }
 
     // - Function: Inserting Item to Database.
-    func insertItemToDB<T: Item>(item: T, table: Table) {
+    func insertItemToDB<T: Codable>(item: T, table: Table) {
         do {
             try db.run(table.insert(item))
         } catch let error {
@@ -158,73 +159,75 @@ public class SQLiteManager {
     }
 
     // - Function: Retrieve and Print Login Credentials
-    func retrieveItems<T: Item>(item: T) -> [Item]
-    {
-        var result = [Item]()
-        do {
-            switch item.kind {
-            // Retrive each LoginItem from Database, Decode it as JSON(Codable) and attach it to LoginItem structure
-            case "LoginItem":
-                let loadedUsers: [T] = try db.prepare(loginCredentialsTable).map { row in
-                    try row.decode()
-                }
-               
-                result.append(contentsOf: loadedUsers)
+    func retrieveItems() {
+        for category in ItemTypes.allCases {
+            do {
+                switch category.rawValue {
+                // Retrive each LoginItem from Database, Decode it as JSON(Codable) and attach it to LoginItem structure
+                case "LoginItem":
+                    let loadedUsers: [LoginItem] = try db.prepare(loginCredentialsTable).map { row in
+                        try row.decode()
+                    }
+                    
+                    itemStore.loginItems = loadedUsers
+                    
+                    
+                    //dump(itemRepo.loginItems)
 
-            case "CreditCardItem":
-                let loadedUsers: [T] = try db.prepare(creditCardsTable).map { row in
-                    try row.decode()
-                }
-                
-                result.append(contentsOf: loadedUsers)
+                case "CreditCardItem":
+                    let loadedUsers: [CreditCardItem] = try db.prepare(creditCardsTable).map { row in
+                        try row.decode()
+                    }
 
-            case "NoteItem":
-                let loadedUsers: [T] = try db.prepare(notesTable).map { row in
-                    try row.decode()
-                }
-                
-                result.append(contentsOf: loadedUsers)
+                    itemStore.creditCardItems = loadedUsers
 
-            case "IdentityItem":
-                let loadedUsers: [T] = try db.prepare(identityTable).map { row in
-                    try row.decode()
-                }
-                
-                result.append(contentsOf: loadedUsers)
+                case "NoteItem":
+                    let loadedUsers: [NoteItem] = try db.prepare(notesTable).map { row in
+                        try row.decode()
+                    }
 
-            default:
-                result = []
+                    itemStore.noteItems = loadedUsers
+
+                case "IdentityItem":
+                    let loadedUsers: [IdentityItem] = try db.prepare(identityTable).map { row in
+                        try row.decode()
+                    }
+
+                    itemStore.identityItems = loadedUsers
+
+                default:
+                    print("no item found")
+                }
+
+            } catch let error {
+                print(error)
             }
-
-        } catch let error {
-            print(error)
         }
-        return result
     }
 
     // - Function: Retrive all Items from DB
-    func retrieveAllItems<T: Item>() -> Array<T>{
-        let tables = [loginCredentialsTable, creditCardsTable, notesTable, identityTable]
-        var result: Array<T> = []
-        // Check items from all database
-        tables.forEach { table in
-
-            do {
-                try db.prepare(table).map { row in
-                    result.removeAll()
-                    let itemType = try row.get(Expression<String>("kind"))
-                    //retrive items from table, convert it to suitable type
-                    let item: T = retrieveItems(item: ItemTypes(rawValue: itemType)! as! T) as! T
-                    // add coverted item to array of table contents
-                    result.append(item)
-                }
-                
-            } catch let err {
-                print(err)
-            }
-        }
-        return result
-    }
+//    func retrieveAllItems() {
+//        let tables = [loginCredentialsTable, creditCardsTable, notesTable, identityTable]
+//        var result: [Item] = []
+//        // Check items from all database
+//        tables.forEach { table in
+//
+//            do {
+//                try db.prepare(table).map { row in
+//                    result.removeAll()
+//                    let itemType = try row.get(Expression<String>("kind"))
+//                    // retrive items from table, convert it to suitable type
+//                    let item = retrieveItems(item: ItemTypes(rawValue: itemType)!)
+//                    // add coverted item to array of table contents
+//                    result.append(item)
+//                }
+//
+//            } catch let err {
+//                print(err)
+//            }
+//        }
+//        dump(result)
+//    }
 
     // MARK: Helper Functions
 

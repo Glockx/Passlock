@@ -12,19 +12,18 @@ struct LabelTextField: View {
     var label: String
     var placeHolder: String
     @Binding var text: String
-    
+
     var body: some View {
-        VStack(alignment: .leading)
-        {
+        VStack(alignment: .leading) {
             Text(label)
                 .font(.headline)
             TextField(placeHolder, text: $text)
-                .padding(.all,10)
+                .padding(.all, 10)
                 .frame(height: 40)
-                .border(Color.orange,width: 3)
-            .cornerRadius(3)
+                .border(Color.orange, width: 3)
+                .cornerRadius(3)
         }
-        .padding(.horizontal,15)
+        .padding(.horizontal, 15)
     }
 }
 
@@ -32,26 +31,24 @@ struct SecureLabelTextField: View {
     var label: String
     var placeHolder: String
     @Binding var text: String
-    
+
     var body: some View {
-        VStack(alignment: .leading)
-        {
+        VStack(alignment: .leading) {
             Text(label)
                 .font(.headline)
             SecureField(placeHolder, text: $text)
-                .padding(.all,10)
+                .padding(.all, 10)
                 .frame(height: 40)
-            .border(Color.orange,width: 3)
-            .cornerRadius(3)
+                .border(Color.orange, width: 3)
+                .cornerRadius(3)
         }
-        .padding(.horizontal,15)
+        .padding(.horizontal, 15)
     }
 }
 
-struct LabelTextField_Previews: PreviewProvider
-{
+struct LabelTextField_Previews: PreviewProvider {
     @State static var name = ""
     static var previews: some View {
-        LabelTextField(label: "Hello", placeHolder: "Test",text: $name).colorScheme(.dark)
+        LabelTextField(label: "Hello", placeHolder: "Test", text: $name).colorScheme(.dark)
     }
 }

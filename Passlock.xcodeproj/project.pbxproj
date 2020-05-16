@@ -16,6 +16,9 @@
 		563689CC2462C82A00AB7455 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 563689CB2462C82A00AB7455 /* Preview Assets.xcassets */; };
 		563689CF2462C82B00AB7455 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 563689CD2462C82B00AB7455 /* LaunchScreen.storyboard */; };
 		563E47D924644D5F00A3191C /* Pods_Passlock.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 85E2CDF5314B5D6102485A78 /* Pods_Passlock.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		5650ECCB246D42050041E03C /* ItemStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5650ECCA246D42050041E03C /* ItemStore.swift */; };
+		5652DA9C246FF87900687959 /* LoginItemDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5652DA9B246FF87900687959 /* LoginItemDetailsView.swift */; };
+		5652DA9E246FFAAB00687959 /* StringTypeSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5652DA9D246FFAAB00687959 /* StringTypeSection.swift */; };
 		5657EE5E24680EED000514B9 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5657EE5D24680EED000514B9 /* HomeView.swift */; };
 		5657EE6024680F06000514B9 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5657EE5F24680F06000514B9 /* SettingsView.swift */; };
 		5657EE63246811EA000514B9 /* Bundle+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5657EE62246811EA000514B9 /* Bundle+Extensions.swift */; };
@@ -58,6 +61,9 @@
 		563689D02462C82B00AB7455 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		563689DF2462D02A00AB7455 /* Passlock-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Passlock-Bridging-Header.h"; sourceTree = "<group>"; };
 		563E47E824644F1100A3191C /* SQLite.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SQLite.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5650ECCA246D42050041E03C /* ItemStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemStore.swift; sourceTree = "<group>"; };
+		5652DA9B246FF87900687959 /* LoginItemDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginItemDetailsView.swift; sourceTree = "<group>"; };
+		5652DA9D246FFAAB00687959 /* StringTypeSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringTypeSection.swift; sourceTree = "<group>"; };
 		5657EE5D24680EED000514B9 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		5657EE5F24680F06000514B9 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		5657EE62246811EA000514B9 /* Bundle+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Extensions.swift"; sourceTree = "<group>"; };
@@ -149,14 +155,31 @@
 		563689D62462C85900AB7455 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				5652DA9A246FF84300687959 /* ItemCreation */,
+				5652DA99246FF83000687959 /* ItemDetails */,
 				562D02EE246C13EC003D36E2 /* ItemCells */,
 				567E55A6246A5A14006EEC49 /* CustomViews+Modifiers */,
 				5657EE5D24680EED000514B9 /* HomeView.swift */,
 				5657EE5F24680F06000514B9 /* SettingsView.swift */,
 				563689C62462C82400AB7455 /* AppView.swift */,
-				56B74A4C246A619E000C114A /* LoginItemView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		5652DA99246FF83000687959 /* ItemDetails */ = {
+			isa = PBXGroup;
+			children = (
+				5652DA9B246FF87900687959 /* LoginItemDetailsView.swift */,
+			);
+			path = ItemDetails;
+			sourceTree = "<group>";
+		};
+		5652DA9A246FF84300687959 /* ItemCreation */ = {
+			isa = PBXGroup;
+			children = (
+				56B74A4C246A619E000C114A /* LoginItemView.swift */,
+			);
+			path = ItemCreation;
 			sourceTree = "<group>";
 		};
 		5657EE61246811D4000514B9 /* Support Files */ = {
@@ -189,6 +212,7 @@
 			children = (
 				5622FAF924630826002BD6C2 /* SQLiteManager.swift */,
 				56EB359224696A6A0004E9AB /* KeyChainManager.swift */,
+				5650ECCA246D42050041E03C /* ItemStore.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -199,6 +223,7 @@
 				56B74A4E246A65AC000C114A /* LabelTextField.swift */,
 				567E55A7246A5A39006EEC49 /* ItemButton.swift */,
 				5686139E246BBC09001E9BCC /* ItemCreationView.swift */,
+				5652DA9D246FFAAB00687959 /* StringTypeSection.swift */,
 			);
 			path = "CustomViews+Modifiers";
 			sourceTree = "<group>";
@@ -370,10 +395,13 @@
 				563689C52462C82400AB7455 /* SceneDelegate.swift in Sources */,
 				5657EE6024680F06000514B9 /* SettingsView.swift in Sources */,
 				562D02F0246C1407003D36E2 /* LoginItemCell.swift in Sources */,
+				5650ECCB246D42050041E03C /* ItemStore.swift in Sources */,
 				56B74A51246A7194000C114A /* View+Extensions.swift in Sources */,
 				5686139F246BBC09001E9BCC /* ItemCreationView.swift in Sources */,
+				5652DA9C246FF87900687959 /* LoginItemDetailsView.swift in Sources */,
 				56B74A4F246A65AC000C114A /* LabelTextField.swift in Sources */,
 				5657EE5E24680EED000514B9 /* HomeView.swift in Sources */,
+				5652DA9E246FFAAB00687959 /* StringTypeSection.swift in Sources */,
 				563689C72462C82400AB7455 /* AppView.swift in Sources */,
 				5657EE63246811EA000514B9 /* Bundle+Extensions.swift in Sources */,
 				56B74A4D246A619E000C114A /* LoginItemView.swift in Sources */,
