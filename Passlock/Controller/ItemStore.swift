@@ -20,5 +20,4 @@ class ItemStore: ObservableObject
     @Published var identityItems = [IdentityItem]()
     @Published var noteItems = [NoteItem]()
     @Published var allItems:[Array<Item>] = []
-    
 }

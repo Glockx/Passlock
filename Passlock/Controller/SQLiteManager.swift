@@ -29,7 +29,7 @@ public class SQLiteManager {
         // Binding empty path string with path of database file
         path = createDBFilePath(fileName: "db.sqlite3")
 
-        //removeDB(localPathName: "db.sqlite3")
+        // removeDB(localPathName: "db.sqlite3")
         // Database connections are established using the Connection class. A connection is initialized with a path to a database. SQLite will attempt to create the database file if it does not already exist.
         do {
             db = try Connection(.uri(path), readonly: false)
@@ -41,9 +41,9 @@ public class SQLiteManager {
             print(error)
         }
         // Enable built-in logging system of SQLite framework.
-//        #if DEBUG
-//            db.trace { print($0) }
-//        #endif
+        #if DEBUG
+            db.trace { print($0) }
+        #endif
     }
 
     // - Function: Create Table and Statement for each Data Template
@@ -125,6 +125,7 @@ public class SQLiteManager {
             // Uniqe ID - Name - Middle Name - Last Name - Gender - Birth Date - National ID Number
             let identityKind = Expression<String>("kind")
             let identityId = Expression<String>("id")
+            let identityTitle = Expression<String>("title")
             let identityName = Expression<String>("name")
             let identityMiddlename = Expression<String>("middleName")
             let identityLastName = Expression<String>("lastName")
@@ -136,6 +137,7 @@ public class SQLiteManager {
             try db.run(identityTable.create(ifNotExists: true) { t in
                 t.column(identityKind)
                 t.column(identityId, primaryKey: true)
+                t.column(identityTitle)
                 t.column(identityName)
                 t.column(identityMiddlename)
                 t.column(identityLastName)
@@ -157,7 +159,18 @@ public class SQLiteManager {
             print(error)
         }
     }
-
+    // - Function: Delete Item from Database.
+    func deleteItemFromDb<T: Item>(item: T,table: Table) {
+        do{
+            let id = Expression<String>("id")
+            let item = table.filter(id == item.id)
+            try db.run(item.delete())
+            
+        }catch let err{
+            print(err)
+        }
+    }
+    
     // - Function: Retrieve and Print Login Credentials
     func retrieveItems() {
         for category in ItemTypes.allCases {
@@ -168,31 +181,24 @@ public class SQLiteManager {
                     let loadedUsers: [LoginItem] = try db.prepare(loginCredentialsTable).map { row in
                         try row.decode()
                     }
-                    
                     itemStore.loginItems = loadedUsers
-                    
-                    
-                    //dump(itemRepo.loginItems)
 
                 case "CreditCardItem":
                     let loadedUsers: [CreditCardItem] = try db.prepare(creditCardsTable).map { row in
                         try row.decode()
                     }
-
                     itemStore.creditCardItems = loadedUsers
 
                 case "NoteItem":
                     let loadedUsers: [NoteItem] = try db.prepare(notesTable).map { row in
                         try row.decode()
                     }
-
                     itemStore.noteItems = loadedUsers
 
                 case "IdentityItem":
                     let loadedUsers: [IdentityItem] = try db.prepare(identityTable).map { row in
                         try row.decode()
                     }
-
                     itemStore.identityItems = loadedUsers
 
                 default:
@@ -261,5 +267,12 @@ public class SQLiteManager {
 
         // Return full path of file as String
         return fileURL
+    }
+}
+
+
+extension String {
+     func isEqualToString(find: String) -> Bool {
+        return String(format: self) == find
     }
 }

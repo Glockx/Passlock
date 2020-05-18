@@ -47,7 +47,7 @@ struct SecureLabelTextField: View {
 }
 
 struct LabelTextField_Previews: PreviewProvider {
-    @State static var name = ""
+    @State static var name = "Talk"
     static var previews: some View {
         LabelTextField(label: "Hello", placeHolder: "Test", text: $name).colorScheme(.dark)
     }

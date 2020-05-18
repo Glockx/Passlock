@@ -12,7 +12,7 @@ struct LoginItemCell: View {
     @State var item: LoginItem
     var body: some View {
         HStack(spacing: 15) {
-            Image(systemName: "person.crop.square.fill")
+            Image(systemName: "l.square.fill")
                 .resizable()
                 .scaledToFit()
                 .foregroundColor(.orange)

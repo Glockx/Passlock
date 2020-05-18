@@ -19,11 +19,11 @@ struct ItemCreation: View {
                     VStack(spacing: 50) {
                         ItemButton(name: "Login", imageName: "person.2.square.stack.fill", destination: LoginItemView())
 
-                        ItemButton(name: "Debt Card", imageName: "creditcard.fill", destination: LoginItemView())
+                        ItemButton(name: "Debit Card", imageName: "creditcard.fill", destination: DebitItemCreationView())
                     }
                     VStack(spacing: 50) {
-                        ItemButton(name: "Identity", imageName: "person.crop.square.fill", destination: LoginItemView())
-                        ItemButton(name: "Note", imageName: "doc.text.fill", destination: LoginItemView())
+                        ItemButton(name: "Identity", imageName: "person.crop.square.fill", destination: IdentityItemCreationView())
+                        ItemButton(name: "Note", imageName: "doc.text.fill", destination: NoteItemCreationView())
                     }
                 }
             }

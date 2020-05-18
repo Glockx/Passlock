@@ -45,7 +45,7 @@ struct LoginItemView: View {
                 SecureLabelTextField(label: "Password", placeHolder: "Fill in the Password...", text: $password)
                     .autocapitalization(.none)
 
-                    .navigationBarTitle("Credit Card", displayMode: .inline)
+                    .navigationBarTitle("Login", displayMode: .inline)
                     .navigationBarItems(trailing: Button(action: {
                         self.presentationMode.wrappedValue.dismiss()
                         }, label: {

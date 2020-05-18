@@ -17,13 +17,15 @@ enum ItemTypes: String, Codable, CaseIterable, RawRepresentable {
 
 protocol Item: Codable {
     var kind: String { get set }
+    var id: String {get set}
 }
 
 // Intializing Identity Data type which supports:
 // Uniqe ID - Name - Middle Name - Last Name - Gender - Birth Date - National ID Number
-struct IdentityItem: Item, Identifiable {
+struct IdentityItem: Item, Identifiable,Hashable {
     var kind: String = "IdentityItem"
     var id: String
+    var title: String
     var name: String
     let middleName: String
     let lastName: String
@@ -34,7 +36,7 @@ struct IdentityItem: Item, Identifiable {
 
 // Intializing Note Data type which supports:
 // Uniqe ID - Title of Note - Date of Note - Text buffer.
-struct NoteItem: Item, Identifiable {
+struct NoteItem: Item, Identifiable,Hashable {
     var kind: String = "NoteItem"
     var id: String
     let title: String
@@ -44,7 +46,7 @@ struct NoteItem: Item, Identifiable {
 
 // Intializing Credit Card Data type which supports:
 // Uniqe ID - Title of Credit Card - Bank Name - Card Name - Card Holder Name - Expiration Date: Date - Card Pin: Int64 - CVV: Int64 .
-struct CreditCardItem: Item, Identifiable {
+struct CreditCardItem: Item, Identifiable,Hashable {
     var kind: String = "CreditCardItem"
     var id: String
     let title: String
@@ -58,7 +60,7 @@ struct CreditCardItem: Item, Identifiable {
 
 // Intializing Login Credentials Data type which supports:
 // Uniqe ID - Title of Data - Username - Email - Password - Name of the website.
-struct LoginItem: Item, Identifiable {
+struct LoginItem: Item, Identifiable,Hashable {
     var kind: String = "LoginItem"
     var id: String
     let title: String

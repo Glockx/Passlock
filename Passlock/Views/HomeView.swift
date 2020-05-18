@@ -13,11 +13,38 @@ struct HomeView: View {
     @ObservedObject var itemRepo: ItemStore = ItemStore.shared
     var body: some View {
         NavigationView {
-            List(itemRepo.loginItems) { item in
-                self.buildView(item: item)
+            List {
+                Group{
+                    Text("LOGIN").fontWeight(.bold).padding(.top, 10).foregroundColor(.orange)
+                    ForEach(itemRepo.loginItems, id: \.self) { item in
+                        self.buildView(item: item)
+                    }.onDelete(perform: loginDelete)
+
+                    Divider()
+                    Text("IDENTITY").fontWeight(.bold).padding(.top, 10).foregroundColor(.orange)
+
+                    ForEach(itemRepo.identityItems, id: \.self) { item in
+                        self.buildView(item: item)
+                    }.onDelete(perform: identityDelete)
+
+                    Divider()
+                    Text("DEBIT CARD").fontWeight(.bold).foregroundColor(.orange)
+                    ForEach(itemRepo.creditCardItems, id: \.self) { item in
+                        self.buildView(item: item)
+                    }.onDelete(perform: cardDelete)
+                    }
+
+                Divider()
+                Text("NOTE").fontWeight(.bold).foregroundColor(.orange)
+                ForEach(itemRepo.noteItems){item in
+                    self.buildView(item: item)
+                }.onDelete(perform: noteDelete)
+
+               
             }
             .listStyle(GroupedListStyle())
             .navigationBarTitle("Home", displayMode: .automatic)
+
             .navigationBarItems(trailing: Button(action: {
                 self.showingDetail.toggle()
             }) {
@@ -28,22 +55,96 @@ struct HomeView: View {
                 ItemCreation()
             }
         }.onAppear {
+            // To remove eparators from the list:
+            UITableView.appearance().separatorColor = .clear
+
             let delegate = UIApplication.shared.delegate as! AppDelegate
             let SQLManager = delegate.SQLite
 
             SQLManager?.retrieveItems()
+
             self.itemRepo.allItems = [self.itemRepo.creditCardItems, self.itemRepo.identityItems, self.itemRepo.loginItems, self.itemRepo.noteItems]
         }
     }
+
+    // - Function: Delete Login Item
+    private func loginDelete(at offsets: IndexSet) {
+        let delegate = UIApplication.shared.delegate as! AppDelegate
+        let SQLManager = delegate.SQLite
+
+        // For deleting Item from DB,first finding item from LoginItems array and passing it as argument
+        for offset in offsets {
+            let itemIndex = itemRepo.loginItems.index(itemRepo.loginItems.startIndex, offsetBy: offset)
+            let item = itemRepo.loginItems[itemIndex]
+
+            SQLManager!.deleteItemFromDb(item: item, table: SQLManager!.loginCredentialsTable)
+        }
+
+        // Remove Item from LoginItems array
+        itemRepo.loginItems.remove(atOffsets: offsets)
+    }
+
+    // - Function: Delete Identity Item
+    private func identityDelete(at offsets: IndexSet) {
+        let delegate = UIApplication.shared.delegate as! AppDelegate
+        let SQLManager = delegate.SQLite
+
+        // For deleting Item from DB,first finding item from identityItems array and passing it as argument
+        for offset in offsets {
+            let itemIndex = itemRepo.identityItems.index(itemRepo.identityItems.startIndex, offsetBy: offset)
+            print(itemIndex)
+            let item = itemRepo.identityItems[itemIndex]
+
+            SQLManager!.deleteItemFromDb(item: item, table: SQLManager!.identityTable)
+        }
+
+      
+        itemRepo.identityItems.remove(atOffsets: offsets)
+    }
+
+    // - Function: Delete Identity Item
+    private func cardDelete(at offsets: IndexSet) {
+        let delegate = UIApplication.shared.delegate as! AppDelegate
+        let SQLManager = delegate.SQLite
+
+        // For deleting Item from DB,first finding item from creditCardItems array and passing it as argument
+        for offset in offsets {
+            let itemIndex = itemRepo.creditCardItems.index(itemRepo.creditCardItems.startIndex, offsetBy: offset)
+            print(itemIndex)
+            let item = itemRepo.creditCardItems[itemIndex]
+
+            SQLManager!.deleteItemFromDb(item: item, table: SQLManager!.creditCardsTable)
+        }
+
+        itemRepo.creditCardItems.remove(atOffsets: offsets)
+    }
+    
+    // - Function: Delete Identity Item
+    private func noteDelete(at offsets: IndexSet) {
+        let delegate = UIApplication.shared.delegate as! AppDelegate
+        let SQLManager = delegate.SQLite
+
+        // For deleting Item from DB,first finding item from creditCardItems array and passing it as argument
+        for offset in offsets {
+            let itemIndex = itemRepo.noteItems.index(itemRepo.noteItems.startIndex, offsetBy: offset)
+            print(itemIndex)
+            let item = itemRepo.noteItems[itemIndex]
+
+            SQLManager!.deleteItemFromDb(item: item, table: SQLManager!.notesTable)
+        }
+
+        itemRepo.noteItems.remove(atOffsets: offsets)
+    }
+    
 
     // - Function: Build Cell For Each type of Item
     func buildView<T: Item>(item: T) -> AnyView {
         switch item.kind {
         case "LoginItem":
-            return AnyView(NavigationLink(destination: LoginItemDetailsView(LoginItem: item as! LoginItem)){LoginItemCell(item: item as! LoginItem)})
-//        case "CreditCardItem": return AnyView(LoginItemCell())
-//        case "NoteItem" :return AnyView(LoginItemCell())
-//        case "IdentityItem": return AnyView(LoginItemCell())
+            return AnyView(NavigationLink(destination: LoginItemDetailsView(LoginItem: item as! LoginItem)) { LoginItemCell(item: item as! LoginItem) })
+        case "CreditCardItem": return AnyView(NavigationLink(destination: CrediCardItemDetailsView(creditCardItem: item as! CreditCardItem)) { CreditCardItemCell(creditCard: item as! CreditCardItem) })
+        case "NoteItem": return AnyView(NavigationLink(destination: NoteItemDetailsView(noteItem: item as! NoteItem)){NoteItemCell(noteItem: item as! NoteItem)})
+        case "IdentityItem": return AnyView(NavigationLink(destination: IdentityItemDetailsView(identityItem: item as! IdentityItem)) { IdentityItemCell(identityItem: item as! IdentityItem) })
         default: return AnyView(EmptyView())
         }
     }
