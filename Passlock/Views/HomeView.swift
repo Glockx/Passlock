@@ -14,7 +14,7 @@ struct HomeView: View {
     var body: some View {
         NavigationView {
             List {
-                Group{
+                Group {
                     Text("LOGIN").fontWeight(.bold).padding(.top, 10).foregroundColor(.orange)
                     ForEach(itemRepo.loginItems, id: \.self) { item in
                         self.buildView(item: item)
@@ -32,15 +32,13 @@ struct HomeView: View {
                     ForEach(itemRepo.creditCardItems, id: \.self) { item in
                         self.buildView(item: item)
                     }.onDelete(perform: cardDelete)
-                    }
+                }
 
                 Divider()
                 Text("NOTE").fontWeight(.bold).foregroundColor(.orange)
-                ForEach(itemRepo.noteItems){item in
+                ForEach(itemRepo.noteItems) { item in
                     self.buildView(item: item)
                 }.onDelete(perform: noteDelete)
-
-               
             }
             .listStyle(GroupedListStyle())
             .navigationBarTitle("Home", displayMode: .automatic)
@@ -98,7 +96,6 @@ struct HomeView: View {
             SQLManager!.deleteItemFromDb(item: item, table: SQLManager!.identityTable)
         }
 
-      
         itemRepo.identityItems.remove(atOffsets: offsets)
     }
 
@@ -118,7 +115,7 @@ struct HomeView: View {
 
         itemRepo.creditCardItems.remove(atOffsets: offsets)
     }
-    
+
     // - Function: Delete Identity Item
     private func noteDelete(at offsets: IndexSet) {
         let delegate = UIApplication.shared.delegate as! AppDelegate
@@ -135,7 +132,6 @@ struct HomeView: View {
 
         itemRepo.noteItems.remove(atOffsets: offsets)
     }
-    
 
     // - Function: Build Cell For Each type of Item
     func buildView<T: Item>(item: T) -> AnyView {
@@ -143,7 +139,7 @@ struct HomeView: View {
         case "LoginItem":
             return AnyView(NavigationLink(destination: LoginItemDetailsView(LoginItem: item as! LoginItem)) { LoginItemCell(item: item as! LoginItem) })
         case "CreditCardItem": return AnyView(NavigationLink(destination: CrediCardItemDetailsView(creditCardItem: item as! CreditCardItem)) { CreditCardItemCell(creditCard: item as! CreditCardItem) })
-        case "NoteItem": return AnyView(NavigationLink(destination: NoteItemDetailsView(noteItem: item as! NoteItem)){NoteItemCell(noteItem: item as! NoteItem)})
+        case "NoteItem": return AnyView(NavigationLink(destination: NoteItemDetailsView(noteItem: item as! NoteItem)) { NoteItemCell(noteItem: item as! NoteItem) })
         case "IdentityItem": return AnyView(NavigationLink(destination: IdentityItemDetailsView(identityItem: item as! IdentityItem)) { IdentityItemCell(identityItem: item as! IdentityItem) })
         default: return AnyView(EmptyView())
         }

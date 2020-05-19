@@ -16,7 +16,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
 
+        
         Store = ItemStore()
+        
         // With initialize of SQLiteHelper class, it will automatically connect to DB when the app starts.
         SQLite = SQLiteManager()
         SQLite.createTablesForDataTypes()

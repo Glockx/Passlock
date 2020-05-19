@@ -159,18 +159,19 @@ public class SQLiteManager {
             print(error)
         }
     }
+
     // - Function: Delete Item from Database.
-    func deleteItemFromDb<T: Item>(item: T,table: Table) {
-        do{
+    func deleteItemFromDb<T: Item>(item: T, table: Table) {
+        do {
             let id = Expression<String>("id")
             let item = table.filter(id == item.id)
             try db.run(item.delete())
-            
-        }catch let err{
+
+        } catch let err {
             print(err)
         }
     }
-    
+
     // - Function: Retrieve and Print Login Credentials
     func retrieveItems() {
         for category in ItemTypes.allCases {
@@ -211,30 +212,6 @@ public class SQLiteManager {
         }
     }
 
-    // - Function: Retrive all Items from DB
-//    func retrieveAllItems() {
-//        let tables = [loginCredentialsTable, creditCardsTable, notesTable, identityTable]
-//        var result: [Item] = []
-//        // Check items from all database
-//        tables.forEach { table in
-//
-//            do {
-//                try db.prepare(table).map { row in
-//                    result.removeAll()
-//                    let itemType = try row.get(Expression<String>("kind"))
-//                    // retrive items from table, convert it to suitable type
-//                    let item = retrieveItems(item: ItemTypes(rawValue: itemType)!)
-//                    // add coverted item to array of table contents
-//                    result.append(item)
-//                }
-//
-//            } catch let err {
-//                print(err)
-//            }
-//        }
-//        dump(result)
-//    }
-
     // MARK: Helper Functions
 
     // - Function: Removing Database from "Documents" directory of app
@@ -270,9 +247,8 @@ public class SQLiteManager {
     }
 }
 
-
 extension String {
-     func isEqualToString(find: String) -> Bool {
+    func isEqualToString(find: String) -> Bool {
         return String(format: self) == find
     }
 }
