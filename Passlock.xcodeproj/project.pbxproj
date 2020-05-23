@@ -39,7 +39,7 @@
 		56B74A4D246A619E000C114A /* LoginItemCreationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B74A4C246A619E000C114A /* LoginItemCreationView.swift */; };
 		56B74A4F246A65AC000C114A /* LabelTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B74A4E246A65AC000C114A /* LabelTextField.swift */; };
 		56CA28002473CAFE00099FE9 /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56CA27FF2473CAFE00099FE9 /* AuthenticationService.swift */; };
-		56E293682478DD3200744385 /* IdleTimerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E293672478DD3200744385 /* IdleTimerService.swift */; };
+		56E2936A2478DF0A00744385 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E293692478DF0A00744385 /* main.swift */; };
 		56EB35902469295C0004E9AB /* ItemTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56EB358F2469295C0004E9AB /* ItemTypes.swift */; };
 		56EB359324696A6A0004E9AB /* KeyChainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56EB359224696A6A0004E9AB /* KeyChainManager.swift */; };
 		56F97B7E247408D7007A1538 /* UserDefaultService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F97B7D247408D7007A1538 /* UserDefaultService.swift */; };
@@ -98,7 +98,7 @@
 		56B74A4C246A619E000C114A /* LoginItemCreationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginItemCreationView.swift; sourceTree = "<group>"; };
 		56B74A4E246A65AC000C114A /* LabelTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelTextField.swift; sourceTree = "<group>"; };
 		56CA27FF2473CAFE00099FE9 /* AuthenticationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationService.swift; sourceTree = "<group>"; };
-		56E293672478DD3200744385 /* IdleTimerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdleTimerService.swift; sourceTree = "<group>"; };
+		56E293692478DF0A00744385 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		56EB358F2469295C0004E9AB /* ItemTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTypes.swift; sourceTree = "<group>"; };
 		56EB3591246966540004E9AB /* Passlock.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Passlock.entitlements; sourceTree = "<group>"; };
 		56EB359224696A6A0004E9AB /* KeyChainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChainManager.swift; sourceTree = "<group>"; };
@@ -171,6 +171,7 @@
 				563689D02462C82B00AB7455 /* Info.plist */,
 				563689CA2462C82A00AB7455 /* Preview Content */,
 				563689DF2462D02A00AB7455 /* Passlock-Bridging-Header.h */,
+				56E293692478DF0A00744385 /* main.swift */,
 			);
 			path = Passlock;
 			sourceTree = "<group>";
@@ -243,7 +244,6 @@
 				5650ECCA246D42050041E03C /* ItemStore.swift */,
 				56EB359224696A6A0004E9AB /* KeyChainManager.swift */,
 				56F97B7D247408D7007A1538 /* UserDefaultService.swift */,
-				56E293672478DD3200744385 /* IdleTimerService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -424,7 +424,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				5606344524713F63008442D2 /* IdentityItemDetailsView.swift in Sources */,
-				56E293682478DD3200744385 /* IdleTimerService.swift in Sources */,
 				563689C32462C82400AB7455 /* AppDelegate.swift in Sources */,
 				56063447247146F6008442D2 /* DebitItemCreationView.swift in Sources */,
 				567E55A8246A5A39006EEC49 /* ItemButton.swift in Sources */,
@@ -452,6 +451,7 @@
 				563689C72462C82400AB7455 /* AppView.swift in Sources */,
 				5657EE63246811EA000514B9 /* Bundle+Extensions.swift in Sources */,
 				56B74A4D246A619E000C114A /* LoginItemCreationView.swift in Sources */,
+				56E2936A2478DF0A00744385 /* main.swift in Sources */,
 				56EB35902469295C0004E9AB /* ItemTypes.swift in Sources */,
 				56EB359324696A6A0004E9AB /* KeyChainManager.swift in Sources */,
 				5652DAA0247009A200687959 /* IdentityItemCreationView.swift in Sources */,

@@ -25,21 +25,6 @@ public class AuthenticationService: ObservableObject {
         ).eraseToAnyPublisher()
     }
 
-    // MARK: Timer Functions
-
-    // Timer for AutoLock Mode
-    @Published private var timeRemaining = 100
-    var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-
-    func stopTimer() {
-        timer.upstream.connect().cancel()
-    }
-
-    func startTimer() {
-        timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-    }
-    
-    
     // MARK: Authentication Function
 
     // Function: Authenticate User with Biometric Input
@@ -59,10 +44,7 @@ public class AuthenticationService: ObservableObject {
                         // authenticated successfully
                         print("authorized")
                         self.isAuthorized = true
-                        
-                        //start lockdown Timer
-                        self.startTimer()
-                        
+
                     } else {
                         // there was a problem
                         print("Not Authorized")

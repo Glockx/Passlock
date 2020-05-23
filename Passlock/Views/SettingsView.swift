@@ -6,16 +6,18 @@
 //  Copyright © 2020 Muzaffarli Nijat. All rights reserved.
 //
 
-import SwiftUI
+import Combine
 import LocalAuthentication
-
+import SwiftUI
 struct SettingsView: View {
     // MARK: Intializing Verions and Build Numbers
 
     @State var version = Bundle.main.releaseVersionNumber
     @State var buildNumber = Bundle.main.buildVersionNumber
     @ObservedObject var settings = UserSettings()
-    
+    @State var timeList = [0.5, 1, 3, 5, 10, 15, 30, 60].map { $0 * 60 }
+    @State private var selectedTimeIndex = 1
+
     var body: some View {
         NavigationView {
             Form {
@@ -31,15 +33,34 @@ struct SettingsView: View {
                         UISwitch.appearance().onTintColor = UIColor.orange
                     }
 
-                    Button(action: { print("Hello") }, label: {
-                        Text("Set Auto Lock Time")
-                    })
+                    Picker(selection: $selectedTimeIndex, label: Text("Set Auto Lock Time").foregroundColor(.orange)) {
+                        ForEach(0 ..< timeList.count) {
+                            if self.timeList[$0] == 30 {
+                                Text("\(String(Int(self.timeList[$0]))) Seconds")
+                            } else if self.timeList[$0] == 60 {
+                                Text("\(String(Int(self.timeList[$0]) / 60)) Minute")
+                            } else {
+                                Text("\(String(Int(self.timeList[$0]) / 60)) Minutes")
+                            }
+                        }
+                    }
+                }.onReceive(Just(self.selectedTimeIndex)) { value in
+
+                    // Set AutoLock Time
+                    UserSettings().autoLockTime = Double(self.timeList[value])
+
+                    // Reset Lock Timer
+                    (UIApplication.shared as? InactivityTrackingApplication)?.stopTracking()
+                    (UIApplication.shared as? InactivityTrackingApplication)?.startTracking(timeOut: Double(self.timeList[value]))
                 }
 
                 Text("Version: \(version!) - Build: \(buildNumber!)")
                     .multilineTextAlignment(.center)
                     .navigationBarTitle("Settings", displayMode: .automatic).frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .center)
             }
+        }.onAppear {
+            // Index of saved autoLock time
+            self.selectedTimeIndex = self.timeList.firstIndex(of: Double(Int(UserSettings().autoLockTime)))!
         }
     }
 }

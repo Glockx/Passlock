@@ -20,7 +20,6 @@ struct AppView: View {
     @State var errorMessage = ""
     @State var isAuthorized = false
     @State var lockTime = 0
-    @State private var isTimerActive = true
 
     var body: some View {
         // Setting Main view of application with Home and Setting view
@@ -50,6 +49,9 @@ struct AppView: View {
                         self.AuthService.authenticate { err in
                             self.errorMessage = err
                         }
+                    }.onDisappear {
+                        // When user is authorized start tracking user inactivity again
+                        (UIApplication.shared as? InactivityTrackingApplication)?.startTracking()
                     }
                     if !errorMessage.isEmpty {
                         Text(errorMessage)
@@ -68,26 +70,14 @@ struct AppView: View {
                     self.AuthService.isAuthorized = false
                 default: break
                 }
-            }
-            // Setting AutoLock Serivce
-            .onReceive(AuthService.timer) { _ in
-
-                // Countdown the locking time.
-                if self.lockTime > 0 {
-                    self.lockTime -= 1
-                } else { // lock app
-                    self.AuthService.isAuthorized = false
-                    // reset autoLock time
-                    self.lockTime = self.settings.autoLockTime
-                    // stop timer
-                    self.AuthService.stopTimer()
-                }
-                print(self.lockTime)
+                // Observe user inactivity and lock the app
+            }.onReceive(NotificationCenter.default.publisher(for: .applicationInactivityTimeOut)) { _ in
+                self.AuthService.isAuthorized = false
             }
             .onAppear {
                 // set autoLock Time
-                self.lockTime = self.settings.autoLockTime
-        }
+                (UIApplication.shared as? InactivityTrackingApplication)?.startTracking(timeOut: self.settings.autoLockTime)
+            }
     }
 }
 

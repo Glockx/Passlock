@@ -9,16 +9,16 @@
 import IQKeyboardManagerSwift
 import UIKit
 
-@UIApplicationMain
+// @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var SQLite: SQLiteManager!
     var Store: ItemStore!
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-
-        
         Store = ItemStore()
-        
+
+        print(UserSettings().autoLockTime)
+        //UserSettings().autoLockTime = 60
         // With initialize of SQLiteHelper class, it will automatically connect to DB when the app starts.
         SQLite = SQLiteManager()
         SQLite.createTablesForDataTypes()

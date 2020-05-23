@@ -41,7 +41,7 @@ final class UserSettings: ObservableObject {
     }
     
     @UserDefault("autoLockTime", defaultValue: 10)
-    var autoLockTime: Int {
+    var autoLockTime: Double {
         willSet {
             objectWillChange.send()
         }
