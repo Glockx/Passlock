@@ -14,12 +14,10 @@ import Valet
 struct AppView: View {
     // Current selected Tab item number
     @State var selectedView = 0
+    @State var errorMessage = ""
     @State private var shareShown = false
     @EnvironmentObject var AuthService: AuthenticationService
     @EnvironmentObject var settings: UserSettings
-    @State var errorMessage = ""
-    @State var isAuthorized = false
-    @State var lockTime = 0
 
     var body: some View {
         // Setting Main view of application with Home and Setting view
@@ -29,7 +27,7 @@ struct AppView: View {
                     .tabItem {
                         Image(systemName: "house.fill")
                         Text("Main")
-                    }.tag(0)
+                    }.tag(0).onAppear {}
 
                 SettingsView()
                     .tabItem {
@@ -37,28 +35,33 @@ struct AppView: View {
                         Text("Settings")
                     }.tag(1)
             } else {
-                VStack(spacing: 30) {
-                    Button(action: { self.AuthService.authenticate { err in
-                        self.errorMessage = err
-                    } }, label: {
-                        Image(systemName: "faceid")
-                            .imageAsFaceID()
-
-                    }).onAppear {
-                        self.errorMessage = ""
-                        self.AuthService.authenticate { err in
+                if !self.settings.isFirstLaunch {
+                    VStack(spacing: 30) {
+                        Button(action: { self.AuthService.authenticate { err in
                             self.errorMessage = err
+                        } }, label: {
+                            Image(systemName: "faceid")
+                                .imageAsFaceID()
+
+                        }).onAppear {
+                            self.errorMessage = ""
+                            self.AuthService.authenticate { err in
+                                self.errorMessage = err
+                            }
+                        }.onDisappear {
+                            // When user is authorized start tracking user inactivity again
+                            (UIApplication.shared as? InactivityTrackingApplication)?.startTracking()
                         }
-                    }.onDisappear {
-                        // When user is authorized start tracking user inactivity again
-                        (UIApplication.shared as? InactivityTrackingApplication)?.startTracking()
-                    }
-                    if !errorMessage.isEmpty {
-                        Text(errorMessage)
-                            .textAsError()
-                    }
-                }.frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .center)
-                    .background(Color.orange)
+                        if !errorMessage.isEmpty {
+                            Text(errorMessage)
+                                .textAsError()
+                        }
+                    }.frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .center)
+                        .background(Color.orange)
+                        .edgesIgnoringSafeArea(.all)
+                } else {
+                    BoardingView().onAppear()
+                }
             }
 
         }.accentColor(.orange)
@@ -75,14 +78,23 @@ struct AppView: View {
                 self.AuthService.isAuthorized = false
             }
             .onAppear {
+                // authenticated successfully
+                
+                if !self.AuthService.dbHasConnected {
+                    self.AuthService.initDB()
+                }
+                print("authorized")
                 // set autoLock Time
-                (UIApplication.shared as? InactivityTrackingApplication)?.startTracking(timeOut: self.settings.autoLockTime)
+                if self.settings.isAutoLockEnabled{
+                    (UIApplication.shared as? InactivityTrackingApplication)?.startTracking(timeOut: self.settings.autoLockTime)
+                }
+                
             }
     }
 }
 
 struct AppView_Previews: PreviewProvider {
     static var previews: some View {
-        AppView(lockTime: 100).environment(\.colorScheme, .dark)
+        AppView().environment(\.colorScheme, .dark)
     }
 }

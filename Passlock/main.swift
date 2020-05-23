@@ -49,6 +49,7 @@ class InactivityTrackingApplication: UIApplication {
     
     /// Stops tracking the inactivity
     func stopTracking() {
+        print("Tracking Has Stoped!")
         workItem?.cancel()
         isTracking = false
     }

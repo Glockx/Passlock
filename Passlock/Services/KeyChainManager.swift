@@ -12,7 +12,7 @@ import Valet
 
 public class KeyChainManager {
     // Init Biometric SecureEnclave of Keychain Access with Valet framework
-    static let BiometricValet = SinglePromptSecureEnclaveValet.valet(with: Identifier(nonEmpty: "Main")!, accessControl: .biometricAny)
+    static let BiometricValet = SinglePromptSecureEnclaveValet.valet(with: Identifier(nonEmpty: "Main")!, accessControl: .userPresence)
 
     // Init  SecureEnclave of Keychain Access with Valet framework
     static let valet = Valet.valet(with: Identifier(nonEmpty: "Main")!, accessibility: .whenUnlocked)
@@ -32,7 +32,10 @@ public class KeyChainManager {
     // MARK: Biometric Functions
 
     // - Function: Writing masterKey of DB to the SecureEnclave with Biometric Validation.
-    func storeKeyBioMetric(data: String) {
+    func storeKeyBioMetric(data: String)
+    {
+        // Force require to prompt the user on the next data retrieval
+        KeyChainManager.BiometricValet.requirePromptOnNextAccess()
         // Set Key
         KeyChainManager.BiometricValet.set(string: data, forKey: "Version")
     }

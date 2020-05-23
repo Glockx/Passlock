@@ -36,6 +36,7 @@
 		5657EE63246811EA000514B9 /* Bundle+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5657EE62246811EA000514B9 /* Bundle+Extensions.swift */; };
 		567E55A8246A5A39006EEC49 /* ItemButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 567E55A7246A5A39006EEC49 /* ItemButton.swift */; };
 		5686139F246BBC09001E9BCC /* ItemCreationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5686139E246BBC09001E9BCC /* ItemCreationView.swift */; };
+		56A120FD247908D700CCCA42 /* BoardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A120FC247908D700CCCA42 /* BoardingView.swift */; };
 		56B74A4D246A619E000C114A /* LoginItemCreationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B74A4C246A619E000C114A /* LoginItemCreationView.swift */; };
 		56B74A4F246A65AC000C114A /* LabelTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B74A4E246A65AC000C114A /* LabelTextField.swift */; };
 		56CA28002473CAFE00099FE9 /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56CA27FF2473CAFE00099FE9 /* AuthenticationService.swift */; };
@@ -95,6 +96,7 @@
 		5657EE62246811EA000514B9 /* Bundle+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Extensions.swift"; sourceTree = "<group>"; };
 		567E55A7246A5A39006EEC49 /* ItemButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemButton.swift; sourceTree = "<group>"; };
 		5686139E246BBC09001E9BCC /* ItemCreationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCreationView.swift; sourceTree = "<group>"; };
+		56A120FC247908D700CCCA42 /* BoardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardingView.swift; sourceTree = "<group>"; };
 		56B74A4C246A619E000C114A /* LoginItemCreationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginItemCreationView.swift; sourceTree = "<group>"; };
 		56B74A4E246A65AC000C114A /* LabelTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelTextField.swift; sourceTree = "<group>"; };
 		56CA27FF2473CAFE00099FE9 /* AuthenticationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationService.swift; sourceTree = "<group>"; };
@@ -191,9 +193,10 @@
 				5652DA99246FF83000687959 /* ItemDetails */,
 				562D02EE246C13EC003D36E2 /* ItemCells */,
 				567E55A6246A5A14006EEC49 /* CustomViews+Modifiers */,
+				563689C62462C82400AB7455 /* AppView.swift */,
 				5657EE5D24680EED000514B9 /* HomeView.swift */,
 				5657EE5F24680F06000514B9 /* SettingsView.swift */,
-				563689C62462C82400AB7455 /* AppView.swift */,
+				56A120FC247908D700CCCA42 /* BoardingView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -423,6 +426,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				56A120FD247908D700CCCA42 /* BoardingView.swift in Sources */,
 				5606344524713F63008442D2 /* IdentityItemDetailsView.swift in Sources */,
 				563689C32462C82400AB7455 /* AppDelegate.swift in Sources */,
 				56063447247146F6008442D2 /* DebitItemCreationView.swift in Sources */,

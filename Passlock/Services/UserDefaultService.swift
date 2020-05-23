@@ -46,4 +46,11 @@ final class UserSettings: ObservableObject {
             objectWillChange.send()
         }
     }
+    
+    @UserDefault("isFirstLaunch", defaultValue: true)
+    var isFirstLaunch: Bool {
+        willSet {
+            objectWillChange.send()
+        }
+    }
 }

@@ -22,28 +22,39 @@ public class SQLiteManager {
     let creditCardsTable = Table("creditCards")
     let notesTable = Table("notes")
     let identityTable = Table("identity")
+    var DBVersion = ""
 
     // MARK: Initializer of class
 
-    init() {
+    func connectToDb() {
         // Binding empty path string with path of database file
         path = createDBFilePath(fileName: "db.sqlite3")
-
+        DBVersion = KeyChainManager().retrieveKeyBioMetric()
         // removeDB(localPathName: "db.sqlite3")
         // Database connections are established using the Connection class. A connection is initialized with a path to a database. SQLite will attempt to create the database file if it does not already exist.
         do {
             db = try Connection(.uri(path), readonly: false)
             // Encrypting the database with Master Key.
-            try db.key("another secret")
-
+            try db.key(DBVersion)
             print("DB has created!")
         } catch let error {
             print(error)
         }
-        // Enable built-in logging system of SQLite framework.
-//        #if DEBUG
-//            db.trace { print($0) }
-//        #endif
+
+        #if DEBUG
+            db.trace { print($0) }
+        #endif
+    }
+
+    // - Function: Change DB Encrpytion Key
+
+    func changeDBKey(key: String) {
+        do {
+            try db.key(DBVersion)
+            try db.rekey(key)
+        } catch let error {
+            print(error)
+        }
     }
 
     // - Function: Create Table and Statement for each Data Template

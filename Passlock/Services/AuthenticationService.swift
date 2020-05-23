@@ -13,7 +13,7 @@ import UIKit
 
 public class AuthenticationService: ObservableObject {
     @Published var isAuthorized = false
-
+    @Published var dbHasConnected = false
     // Update State of Application
     var ApplicationStatePublisher: AnyPublisher<Notification, Never> {
         Publishers.Merge3(NotificationCenter.default
@@ -59,6 +59,17 @@ public class AuthenticationService: ObservableObject {
             let strMessage = errorMessage(errorCode: (error?._code)!)
             completion(strMessage)
         }
+    }
+    
+    func initDB(){
+        let delegate = UIApplication.shared.delegate as! AppDelegate
+        
+        let sqlManager = delegate.SQLite
+        
+        sqlManager?.connectToDb()
+        sqlManager?.createTablesForDataTypes()
+        self.dbHasConnected = true
+        self.isAuthorized = true
     }
 
     func errorMessage(errorCode: Int) -> String {

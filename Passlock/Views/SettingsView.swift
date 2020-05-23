@@ -17,12 +17,25 @@ struct SettingsView: View {
     @ObservedObject var settings = UserSettings()
     @State var timeList = [0.5, 1, 3, 5, 10, 15, 30, 60].map { $0 * 60 }
     @State private var selectedTimeIndex = 1
+    @State private var text = ""
 
     var body: some View {
         NavigationView {
             Form {
                 Section(header: Text("Master Key")) {
-                    Button(action: {}, label: {
+                    SecureField("Password", text: $text)
+                    Button(action: {
+                        // If pass is not save it to SecureEnclave with Biometrich Authentication
+                        if !self.text.isEmpty {
+                            KeyChainManager().storeKeyBioMetric(data: self.text)
+                            
+                            let delegate = UIApplication.shared.delegate as! AppDelegate
+                            let SQLManager = delegate.SQLite
+                            
+                            SQLManager?.changeDBKey(key: KeyChainManager().retrieveKeyBioMetric())
+                            self.text = ""
+                        }
+                    }, label: {
                         Text("Change Master Key")
                     })
                 }
@@ -31,6 +44,11 @@ struct SettingsView: View {
                         Text("Auto Lock")
                     }.onAppear {
                         UISwitch.appearance().onTintColor = UIColor.orange
+                    }.onReceive(Just(self.settings.isAutoLockEnabled)){value in
+                        
+                        if !value{
+                            (UIApplication.shared as? InactivityTrackingApplication)?.stopTracking()
+                        }
                     }
 
                     Picker(selection: $selectedTimeIndex, label: Text("Set Auto Lock Time").foregroundColor(.orange)) {
