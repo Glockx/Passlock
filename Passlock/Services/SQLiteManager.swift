@@ -41,9 +41,9 @@ public class SQLiteManager {
             print(error)
         }
         // Enable built-in logging system of SQLite framework.
-        #if DEBUG
-            db.trace { print($0) }
-        #endif
+//        #if DEBUG
+//            db.trace { print($0) }
+//        #endif
     }
 
     // - Function: Create Table and Statement for each Data Template

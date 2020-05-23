@@ -14,8 +14,8 @@ struct SettingsView: View {
 
     @State var version = Bundle.main.releaseVersionNumber
     @State var buildNumber = Bundle.main.buildVersionNumber
-    @State private var enableAutoLockMode = true
-
+    @ObservedObject var settings = UserSettings()
+    
     var body: some View {
         NavigationView {
             Form {
@@ -25,7 +25,7 @@ struct SettingsView: View {
                     })
                 }
                 Section(header: Text("Auto Lock Mode")) {
-                    Toggle(isOn: $enableAutoLockMode) {
+                    Toggle(isOn: $settings.isAutoLockEnabled) {
                         Text("Auto Lock")
                     }.onAppear {
                         UISwitch.appearance().onTintColor = UIColor.orange

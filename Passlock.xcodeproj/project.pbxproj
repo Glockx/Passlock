@@ -15,6 +15,7 @@
 		5606344F2472616B008442D2 /* NoteTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5606344E2472616B008442D2 /* NoteTextField.swift */; };
 		5606345124726D44008442D2 /* NoteItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5606345024726D44008442D2 /* NoteItemCell.swift */; };
 		5606345324727067008442D2 /* NoteItemDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5606345224727067008442D2 /* NoteItemDetailsView.swift */; };
+		560BADA92473FEBD009B53C0 /* Text+Modifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 560BADA82473FEBD009B53C0 /* Text+Modifier.swift */; };
 		5622FAFA24630826002BD6C2 /* SQLiteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5622FAF924630826002BD6C2 /* SQLiteManager.swift */; };
 		562D02F0246C1407003D36E2 /* LoginItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 562D02EF246C1407003D36E2 /* LoginItemCell.swift */; };
 		563689C32462C82400AB7455 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 563689C22462C82400AB7455 /* AppDelegate.swift */; };
@@ -38,8 +39,10 @@
 		56B74A4D246A619E000C114A /* LoginItemCreationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B74A4C246A619E000C114A /* LoginItemCreationView.swift */; };
 		56B74A4F246A65AC000C114A /* LabelTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B74A4E246A65AC000C114A /* LabelTextField.swift */; };
 		56CA28002473CAFE00099FE9 /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56CA27FF2473CAFE00099FE9 /* AuthenticationService.swift */; };
+		56E293682478DD3200744385 /* IdleTimerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E293672478DD3200744385 /* IdleTimerService.swift */; };
 		56EB35902469295C0004E9AB /* ItemTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56EB358F2469295C0004E9AB /* ItemTypes.swift */; };
 		56EB359324696A6A0004E9AB /* KeyChainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56EB359224696A6A0004E9AB /* KeyChainManager.swift */; };
+		56F97B7E247408D7007A1538 /* UserDefaultService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56F97B7D247408D7007A1538 /* UserDefaultService.swift */; };
 		7A950F894074454260596CA2 /* Pods_Passlock.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F087414A13B57F1F1E10C017 /* Pods_Passlock.framework */; };
 /* End PBXBuildFile section */
 
@@ -68,6 +71,7 @@
 		5606344E2472616B008442D2 /* NoteTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteTextField.swift; sourceTree = "<group>"; };
 		5606345024726D44008442D2 /* NoteItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteItemCell.swift; sourceTree = "<group>"; };
 		5606345224727067008442D2 /* NoteItemDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteItemDetailsView.swift; sourceTree = "<group>"; };
+		560BADA82473FEBD009B53C0 /* Text+Modifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Text+Modifier.swift"; sourceTree = "<group>"; };
 		5622FAF924630826002BD6C2 /* SQLiteManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLiteManager.swift; sourceTree = "<group>"; };
 		562D02EF246C1407003D36E2 /* LoginItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginItemCell.swift; sourceTree = "<group>"; };
 		563689BF2462C82400AB7455 /* Passlock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Passlock.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -94,9 +98,11 @@
 		56B74A4C246A619E000C114A /* LoginItemCreationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginItemCreationView.swift; sourceTree = "<group>"; };
 		56B74A4E246A65AC000C114A /* LabelTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelTextField.swift; sourceTree = "<group>"; };
 		56CA27FF2473CAFE00099FE9 /* AuthenticationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationService.swift; sourceTree = "<group>"; };
+		56E293672478DD3200744385 /* IdleTimerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdleTimerService.swift; sourceTree = "<group>"; };
 		56EB358F2469295C0004E9AB /* ItemTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTypes.swift; sourceTree = "<group>"; };
 		56EB3591246966540004E9AB /* Passlock.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Passlock.entitlements; sourceTree = "<group>"; };
 		56EB359224696A6A0004E9AB /* KeyChainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChainManager.swift; sourceTree = "<group>"; };
+		56F97B7D247408D7007A1538 /* UserDefaultService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultService.swift; sourceTree = "<group>"; };
 		85E2CDF5314B5D6102485A78 /* Pods_Passlock.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Passlock.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F087414A13B57F1F1E10C017 /* Pods_Passlock.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Passlock.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -233,9 +239,11 @@
 			isa = PBXGroup;
 			children = (
 				5622FAF924630826002BD6C2 /* SQLiteManager.swift */,
-				56EB359224696A6A0004E9AB /* KeyChainManager.swift */,
-				5650ECCA246D42050041E03C /* ItemStore.swift */,
 				56CA27FF2473CAFE00099FE9 /* AuthenticationService.swift */,
+				5650ECCA246D42050041E03C /* ItemStore.swift */,
+				56EB359224696A6A0004E9AB /* KeyChainManager.swift */,
+				56F97B7D247408D7007A1538 /* UserDefaultService.swift */,
+				56E293672478DD3200744385 /* IdleTimerService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -249,6 +257,7 @@
 				5652DA9D246FFAAB00687959 /* StringTypeSection.swift */,
 				5652DAA324700DDD00687959 /* DatePickerView.swift */,
 				5606344E2472616B008442D2 /* NoteTextField.swift */,
+				560BADA82473FEBD009B53C0 /* Text+Modifier.swift */,
 			);
 			path = "CustomViews+Modifiers";
 			sourceTree = "<group>";
@@ -415,10 +424,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				5606344524713F63008442D2 /* IdentityItemDetailsView.swift in Sources */,
+				56E293682478DD3200744385 /* IdleTimerService.swift in Sources */,
 				563689C32462C82400AB7455 /* AppDelegate.swift in Sources */,
 				56063447247146F6008442D2 /* DebitItemCreationView.swift in Sources */,
 				567E55A8246A5A39006EEC49 /* ItemButton.swift in Sources */,
 				5622FAFA24630826002BD6C2 /* SQLiteManager.swift in Sources */,
+				560BADA92473FEBD009B53C0 /* Text+Modifier.swift in Sources */,
 				563689C52462C82400AB7455 /* SceneDelegate.swift in Sources */,
 				5657EE6024680F06000514B9 /* SettingsView.swift in Sources */,
 				56063449247169C0008442D2 /* CreditCardItemCell.swift in Sources */,
@@ -431,6 +442,7 @@
 				5650ECCB246D42050041E03C /* ItemStore.swift in Sources */,
 				5606345124726D44008442D2 /* NoteItemCell.swift in Sources */,
 				56CA28002473CAFE00099FE9 /* AuthenticationService.swift in Sources */,
+				56F97B7E247408D7007A1538 /* UserDefaultService.swift in Sources */,
 				5686139F246BBC09001E9BCC /* ItemCreationView.swift in Sources */,
 				5652DA9C246FF87900687959 /* LoginItemDetailsView.swift in Sources */,
 				56B74A4F246A65AC000C114A /* LabelTextField.swift in Sources */,

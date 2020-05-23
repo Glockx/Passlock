@@ -8,6 +8,8 @@
 
 import SwiftUI
 
+// MARK: Item Button Style
+
 struct ItemButtonStyle: ButtonStyle {
     func makeBody(configuration: Self.Configuration) -> some View {
         configuration.label
@@ -36,5 +38,20 @@ struct ItemButton<DestinationView: View>: View {
                 self.destination
             }
         }).buttonStyle(ItemButtonStyle())
+    }
+}
+
+// MARK: FaceID Image Style
+
+extension Image {
+    func imageAsFaceID() -> some View {
+        resizable()
+            .aspectRatio(contentMode: .fit)
+            .frame(width: 50, height: 50)
+            .padding(.all)
+            .background(Color.orange)
+            .cornerRadius(16)
+            .foregroundColor(.white)
+            .shadow(radius: 20)
     }
 }

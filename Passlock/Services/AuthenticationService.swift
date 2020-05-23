@@ -12,9 +12,9 @@ import LocalAuthentication
 import UIKit
 
 public class AuthenticationService: ObservableObject {
-    static let shared = AuthenticationService()
     @Published var isAuthorized = false
 
+    // Update State of Application
     var ApplicationStatePublisher: AnyPublisher<Notification, Never> {
         Publishers.Merge3(NotificationCenter.default
             .publisher(for: UIApplication.didEnterBackgroundNotification),
@@ -25,7 +25,25 @@ public class AuthenticationService: ObservableObject {
         ).eraseToAnyPublisher()
     }
 
-    func authenticate(completion: @escaping ((Bool,String) -> ())) {
+    // MARK: Timer Functions
+
+    // Timer for AutoLock Mode
+    @Published private var timeRemaining = 100
+    var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+
+    func stopTimer() {
+        timer.upstream.connect().cancel()
+    }
+
+    func startTimer() {
+        timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    }
+    
+    
+    // MARK: Authentication Function
+
+    // Function: Authenticate User with Biometric Input
+    func authenticate(completion: @escaping ((String) -> Void)) {
         let context = LAContext()
         var error: NSError?
 
@@ -41,19 +59,23 @@ public class AuthenticationService: ObservableObject {
                         // authenticated successfully
                         print("authorized")
                         self.isAuthorized = true
+                        
+                        //start lockdown Timer
+                        self.startTimer()
+                        
                     } else {
                         // there was a problem
                         print("Not Authorized")
                         let strMessage = self.errorMessage(errorCode: error!._code)
                         self.isAuthorized = false
-                        completion(false, strMessage)
+                        completion(strMessage)
                     }
                 }
             }
         } else {
             // no biometrics
             let strMessage = errorMessage(errorCode: (error?._code)!)
-           completion(false, strMessage)
+            completion(strMessage)
         }
     }
 
