@@ -18,7 +18,7 @@ struct AppView: View {
     @State private var shareShown = false
     @EnvironmentObject var AuthService: AuthenticationService
     @EnvironmentObject var settings: UserSettings
-
+    @State private var passText = ""
     var body: some View {
         // Setting Main view of application with Home and Setting view
         TabView(selection: $selectedView) {
@@ -52,6 +52,25 @@ struct AppView: View {
                             // When user is authorized start tracking user inactivity again
                             (UIApplication.shared as? InactivityTrackingApplication)?.startTracking()
                         }
+                        VStack {
+                            SecureField("Master Key", text: $passText,onCommit: {
+                                let delegate = UIApplication.shared.delegate as! AppDelegate
+                                let sqlManager = delegate.SQLite
+                                
+                                if self.passText == sqlManager?.DBVersion{
+                                    self.AuthService.isAuthorized = true
+                                    self.passText = ""
+                                }else{
+                                    self.errorMessage = "Master key is wrong,please try again!"
+                                }
+                            })
+                                .foregroundColor(.white)
+                                .padding(.horizontal, 10)
+                                .frame(height: 50)
+                                .border(Color.white, width: 3)
+                                .cornerRadius(3)
+                        }.padding(.horizontal,30)
+
                         if !errorMessage.isEmpty {
                             Text(errorMessage)
                                 .textAsError()
@@ -79,16 +98,15 @@ struct AppView: View {
             }
             .onAppear {
                 // authenticated successfully
-                
+
                 if !self.AuthService.dbHasConnected {
                     self.AuthService.initDB()
                 }
                 print("authorized")
                 // set autoLock Time
-                if self.settings.isAutoLockEnabled{
+                if self.settings.isAutoLockEnabled {
                     (UIApplication.shared as? InactivityTrackingApplication)?.startTracking(timeOut: self.settings.autoLockTime)
                 }
-                
             }
     }
 }

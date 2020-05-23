@@ -39,11 +39,11 @@ public class SQLiteManager {
             print("DB has created!")
         } catch let error {
             print(error)
-        }
+        } 
 
-        #if DEBUG
-            db.trace { print($0) }
-        #endif
+//        #if DEBUG
+//            db.trace { print($0) }
+//        #endif
     }
 
     // - Function: Change DB Encrpytion Key

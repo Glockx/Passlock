@@ -15,6 +15,7 @@ struct SettingsView: View {
     @State var version = Bundle.main.releaseVersionNumber
     @State var buildNumber = Bundle.main.buildVersionNumber
     @ObservedObject var settings = UserSettings()
+    @EnvironmentObject var AuthService: AuthenticationService
     @State var timeList = [0.5, 1, 3, 5, 10, 15, 30, 60].map { $0 * 60 }
     @State private var selectedTimeIndex = 1
     @State private var text = ""
@@ -28,10 +29,10 @@ struct SettingsView: View {
                         // If pass is not save it to SecureEnclave with Biometrich Authentication
                         if !self.text.isEmpty {
                             KeyChainManager().storeKeyBioMetric(data: self.text)
-                            
+
                             let delegate = UIApplication.shared.delegate as! AppDelegate
                             let SQLManager = delegate.SQLite
-                            
+
                             SQLManager?.changeDBKey(key: KeyChainManager().retrieveKeyBioMetric())
                             self.text = ""
                         }
@@ -44,9 +45,9 @@ struct SettingsView: View {
                         Text("Auto Lock")
                     }.onAppear {
                         UISwitch.appearance().onTintColor = UIColor.orange
-                    }.onReceive(Just(self.settings.isAutoLockEnabled)){value in
-                        
-                        if !value{
+                    }.onReceive(Just(self.settings.isAutoLockEnabled)) { value in
+
+                        if !value {
                             (UIApplication.shared as? InactivityTrackingApplication)?.stopTracking()
                         }
                     }
@@ -62,6 +63,9 @@ struct SettingsView: View {
                             }
                         }
                     }
+
+                    Button(action: { self.AuthService.isAuthorized = false }, label: { Text("Lock the app!") })
+
                 }.onReceive(Just(self.selectedTimeIndex)) { value in
 
                     // Set AutoLock Time
