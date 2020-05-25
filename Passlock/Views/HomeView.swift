@@ -6,6 +6,7 @@
 //  Copyright © 2020 Muzaffarli Nijat. All rights reserved.
 //
 
+import Combine
 import SwiftUI
 
 struct HomeView: View {
@@ -15,30 +16,45 @@ struct HomeView: View {
         NavigationView {
             List {
                 Group {
-                    Text("LOGIN").fontWeight(.bold).padding(.top, 10).foregroundColor(.orange)
-                    ForEach(itemRepo.loginItems, id: \.self) { item in
-                        self.buildView(item: item)
-                    }.onDelete(perform: loginDelete)
+                    if !itemRepo.loginItems.isEmpty {
+                        Text("LOGIN").fontWeight(.bold).padding(.top, 10).foregroundColor(.orange)
+                        ForEach(itemRepo.loginItems, id: \.self) { item in
+                            self.buildView(item: item)
+                        }.onDelete(perform: loginDelete)
+                        Divider()
+                    } else if !itemRepo.identityItems.isEmpty {
+                        Text("IDENTITY").fontWeight(.bold).padding(.top, 10).foregroundColor(.orange)
 
-                    Divider()
-                    Text("IDENTITY").fontWeight(.bold).padding(.top, 10).foregroundColor(.orange)
+                        ForEach(itemRepo.identityItems, id: \.self) { item in
+                            self.buildView(item: item)
+                        }.onDelete(perform: identityDelete)
 
-                    ForEach(itemRepo.identityItems, id: \.self) { item in
-                        self.buildView(item: item)
-                    }.onDelete(perform: identityDelete)
+                        Divider()
+                    } else if !itemRepo.creditCardItems.isEmpty {
+                        Text("DEBIT CARD").fontWeight(.bold).foregroundColor(.orange)
+                        ForEach(itemRepo.creditCardItems, id: \.self) { item in
+                            self.buildView(item: item)
+                        }.onDelete(perform: cardDelete)
+                        Divider()
+                    } else if !itemRepo.noteItems.isEmpty {
+                        Text("NOTE").fontWeight(.bold).foregroundColor(.orange)
+                        ForEach(itemRepo.noteItems) { item in
+                            self.buildView(item: item)
+                        }.onDelete(perform: noteDelete)
+                    } else {
+                        HStack {
+                            Image(systemName: "tray.fill")
+                                .foregroundColor(.orange)
+                                .font(.title)
+                                
+                            Text("Items has not added yet.")
+                                .foregroundColor(.orange)
+                                .font(.headline)
+                                .fontWeight(.heavy)
 
-                    Divider()
-                    Text("DEBIT CARD").fontWeight(.bold).foregroundColor(.orange)
-                    ForEach(itemRepo.creditCardItems, id: \.self) { item in
-                        self.buildView(item: item)
-                    }.onDelete(perform: cardDelete)
+                        }.frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .center)
+                    }
                 }
-
-                Divider()
-                Text("NOTE").fontWeight(.bold).foregroundColor(.orange)
-                ForEach(itemRepo.noteItems) { item in
-                    self.buildView(item: item)
-                }.onDelete(perform: noteDelete)
             }
             .listStyle(GroupedListStyle())
             .navigationBarTitle("Home", displayMode: .automatic)
@@ -60,8 +76,6 @@ struct HomeView: View {
             let SQLManager = delegate.SQLite
 
             SQLManager?.retrieveItems()
-
-            self.itemRepo.allItems = [self.itemRepo.creditCardItems, self.itemRepo.identityItems, self.itemRepo.loginItems, self.itemRepo.noteItems]
         }
     }
 

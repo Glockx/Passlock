@@ -30,37 +30,27 @@ struct NoteItemCreationView: View {
         return NavigationView {
             VStack {
                 LabelTextField(label: "Title", placeHolder: "Fill in the Title...", text: binding).autocapitalization(.none).padding(.vertical, 15)
-                VStack(alignment: .leading)
-                {
-                    Text("Note").font(.headline).padding(.horizontal,15)
-                    
-                    NoteTextField(text: $note, isEditing: $isEditing, placeholder: "Enter The Note...",placeholderHorizontalPadding: 10, placeholderVerticalPadding: 10)
-                        
+                VStack(alignment: .leading) {
+                    Text("Note").font(.headline).padding(.horizontal, 15)
+
+                    NoteTextField(text: $note, isEditing: $isEditing, placeholder: "Enter The Note...", placeholderHorizontalPadding: 10, placeholderVerticalPadding: 10)
+
                         .border(Color.orange, width: 3)
                         .padding(.horizontal, 15)
                         .navigationBarTitle("Login", displayMode: .inline)
-                        .navigationBarItems(trailing: Button(action: {
+                        .navigationBarItems(leading: Button(action: {
                             self.presentationMode.wrappedValue.dismiss()
                             }, label: {
                                 Text("Cancel").foregroundColor(.orange)
-                        }))
+                        }), trailing: Button(action: {
+                            self.saveItem()
+                        }, label: {
+                            Text("Done").foregroundColor(self.titleIsEmpty ? Color(.systemGray2) : Color.orange)
+                        }).disabled(self.titleIsEmpty ? true : false))
                 }
 
                 Button(action: {
-                    // Function: Create LoginItem with user input and push to DB
-                    let item = NoteItem(id: UUID().uuidString, title: self.title, date: Date(), textBlob: self.note)
-
-                    let delegate = UIApplication.shared.delegate as! AppDelegate
-                    let SQLManager = delegate.SQLite
-
-                    // Push item to DB
-                    SQLManager?.insertItemToDB(item: item, table: SQLManager!.notesTable)
-
-                    // Send changes to ItemStore
-                    SQLManager?.retrieveItems()
-
-                    // Dissmis Self
-                    self.presentationMode.wrappedValue.dismiss()
+                    self.saveItem()
                 }, label: {
                     Text("Save")
                         .font(.headline)
@@ -74,6 +64,23 @@ struct NoteItemCreationView: View {
                 Spacer()
             }
         }
+    }
+
+    func saveItem() {
+        // Function: Create LoginItem with user input and push to DB
+        let item = NoteItem(id: UUID().uuidString, title: title, date: Date(), textBlob: note)
+
+        let delegate = UIApplication.shared.delegate as! AppDelegate
+        let SQLManager = delegate.SQLite
+
+        // Push item to DB
+        SQLManager?.insertItemToDB(item: item, table: SQLManager!.notesTable)
+
+        // Send changes to ItemStore
+        SQLManager?.retrieveItems()
+
+        // Dissmis Self
+        presentationMode.wrappedValue.dismiss()
     }
 }
 

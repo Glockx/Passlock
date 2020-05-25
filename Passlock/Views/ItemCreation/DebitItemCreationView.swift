@@ -44,26 +44,18 @@ struct DebitItemCreationView: View {
                     SecureLabelTextField(label: "Card Pin", placeHolder: "Fill in the Card Pin...", text: $cardPin).keyboardType(.decimalPad)
                     SecureLabelTextField(label: "Card CVC", placeHolder: "Fill in the Card CVC...", text: $cvv).keyboardType(.decimalPad)
                         .navigationBarTitle("Debit Card", displayMode: .inline)
-                        .navigationBarItems(trailing: Button(action: {
+                        .navigationBarItems(leading: Button(action: {
                             self.presentationMode.wrappedValue.dismiss()
                             }, label: {
                                 Text("Cancel").foregroundColor(.orange)
-                        }))
+                        }), trailing: Button(action: {
+                            self.saveItem()
+                        }, label: {
+                            Text("Done").foregroundColor(self.titleIsEmpty ? Color(.systemGray2) : Color.orange)
+                        }).disabled(self.titleIsEmpty ? true : false))
+
                     Button(action: {
-                        // Function: Create LoginItem with user input and push to DB
-                        let item = CreditCardItem(id: UUID().uuidString, title: self.title, bankName: self.bankName, cardNumber: self.cardNumber, cardHolderName: self.cardHolder, expirationDate: self.expiration, cardPin: Int(self.cardPin) ?? 0, cardCvv: Int(self.cvv) ?? 0)
-
-                        let delegate = UIApplication.shared.delegate as! AppDelegate
-                        let SQLManager = delegate.SQLite
-
-                        // Push item to DB
-                        SQLManager?.insertItemToDB(item: item, table: SQLManager!.creditCardsTable)
-
-                        // Send changes to ItemStore
-                        SQLManager?.retrieveItems()
-
-                        // Dissmis Self
-                        self.presentationMode.wrappedValue.dismiss()
+                        self.saveItem()
                     }, label: {
                         Text("Save")
                             .font(.headline)
@@ -78,6 +70,23 @@ struct DebitItemCreationView: View {
                 }
             }
         }
+    }
+
+    func saveItem() {
+        // Function: Create LoginItem with user input and push to DB
+        let item = CreditCardItem(id: UUID().uuidString, title: title, bankName: bankName, cardNumber: cardNumber, cardHolderName: cardHolder, expirationDate: expiration, cardPin: Int(cardPin) ?? 0, cardCvv: Int(cvv) ?? 0)
+
+        let delegate = UIApplication.shared.delegate as! AppDelegate
+        let SQLManager = delegate.SQLite
+
+        // Push item to DB
+        SQLManager?.insertItemToDB(item: item, table: SQLManager!.creditCardsTable)
+
+        // Send changes to ItemStore
+        SQLManager?.retrieveItems()
+
+        // Dissmis Self
+        presentationMode.wrappedValue.dismiss()
     }
 }
 

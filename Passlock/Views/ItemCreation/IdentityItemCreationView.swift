@@ -49,31 +49,18 @@ struct IdentityItemCreationView: View {
                     DatePickerView(title: "Birth Date", wakeUp: birth)
                     LabelTextField(label: "National ID Number", placeHolder: "Fill in the National ID Number...", text: $nationID).autocapitalization(.none)
                         .navigationBarTitle("Identity", displayMode: .inline)
-                        .navigationBarItems(trailing: Button(action: {
+                        .navigationBarItems(leading: Button(action: {
                             self.presentationMode.wrappedValue.dismiss()
                             }, label: {
                                 Text("Cancel").foregroundColor(.orange)
-                        }))
+                        }), trailing: Button(action: {
+                            self.saveItem()
+                        }, label: {
+                            Text("Done").foregroundColor(self.titleIsEmpty ? Color(.systemGray2) : Color.orange)
+                        }).disabled(self.titleIsEmpty ? true : false))
                 }
                 Button(action: {
-                    // Function: Create LoginItem with user input and push to DB
-                    let item = IdentityItem(id: UUID().uuidString,title: self.title, name: self.name, middleName: self.middleName, lastName: self.lastName, gender: self.gender, birthDate: self.birth, nationalID: self.nationID)
-                    
-
-                    let delegate = UIApplication.shared.delegate as! AppDelegate
-                    let SQLManager = delegate.SQLite
-
-                    // Push item to DB
-                    SQLManager?.insertItemToDB(item: item, table: SQLManager!.identityTable)
-
-                    // Send changes to ItemStore
-                    SQLManager?.retrieveItems()
-                    
-                    
-                    // Dissmis Self
-                    self.presentationMode.wrappedValue.dismiss()
-
-                    print()
+                    self.saveItem()
                 }, label: {
                     Text("Save")
                         .font(.headline)
@@ -87,6 +74,23 @@ struct IdentityItemCreationView: View {
                 Spacer()
             }
         }
+    }
+
+    func saveItem() {
+        // Function: Create LoginItem with user input and push to DB
+        let item = IdentityItem(id: UUID().uuidString, title: title, name: name, middleName: middleName, lastName: lastName, gender: gender, birthDate: birth, nationalID: nationID)
+
+        let delegate = UIApplication.shared.delegate as! AppDelegate
+        let SQLManager = delegate.SQLite
+
+        // Push item to DB
+        SQLManager?.insertItemToDB(item: item, table: SQLManager!.identityTable)
+
+        // Send changes to ItemStore
+        SQLManager?.retrieveItems()
+
+        // Dissmis Self
+        presentationMode.wrappedValue.dismiss()
     }
 }
 

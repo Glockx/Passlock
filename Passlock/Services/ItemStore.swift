@@ -10,15 +10,13 @@ import Combine
 import Foundation
 import SwiftUI
 
-class ItemStore: ObservableObject
-{
+class ItemStore: ObservableObject {
     static let shared = ItemStore()
     public let itemPublisher = PassthroughSubject<Array<Item>, Never>()
-    
+
     @Published var hasLaunched = UserDefaults.standard.bool(forKey: "isFirstLaunch")
     @Published var loginItems = [LoginItem]()
     @Published var creditCardItems = [CreditCardItem]()
     @Published var identityItems = [IdentityItem]()
     @Published var noteItems = [NoteItem]()
-    @Published var allItems:[Array<Item>] = []
 }
