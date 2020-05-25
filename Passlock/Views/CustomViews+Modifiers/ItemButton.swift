@@ -14,7 +14,7 @@ struct ItemButtonStyle: ButtonStyle {
     func makeBody(configuration: Self.Configuration) -> some View {
         configuration.label
             .padding()
-            .frame(width: 110, height: 110)
+            .frame(width: 120, height: 120)
             .foregroundColor(Color.white)
             .background(Color.orange)
             .cornerRadius(10)
@@ -30,7 +30,7 @@ struct ItemButton<DestinationView: View>: View {
 
     var body: some View {
         Button(action: { self.showingDetail.toggle() }, label: {
-            VStack {
+            VStack(spacing: 10) {
                 Image(systemName: imageName)
                     .font(.largeTitle)
                 Text(name)

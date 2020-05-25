@@ -18,7 +18,6 @@ struct ItemCreation: View {
                 HStack(spacing: 50) {
                     VStack(spacing: 50) {
                         ItemButton(name: "Login", imageName: "person.2.square.stack.fill", destination: LoginItemView())
-
                         ItemButton(name: "Debit Card", imageName: "creditcard.fill", destination: DebitItemCreationView())
                     }
                     VStack(spacing: 50) {
@@ -39,6 +38,6 @@ struct ItemCreation: View {
 
 struct ItemCreationView_Previews: PreviewProvider {
     static var previews: some View {
-        ItemCreation()
+        ItemCreation().environment(\.colorScheme, .dark)
     }
 }

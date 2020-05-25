@@ -10,6 +10,7 @@ import SwiftUI
 
 struct LoginItemView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @Environment(\.showingSheet) var showingDetail
     @State var title = ""
     @State var website = ""
     @State var username = ""

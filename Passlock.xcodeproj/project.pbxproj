@@ -39,6 +39,7 @@
 		56A120FD247908D700CCCA42 /* BoardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56A120FC247908D700CCCA42 /* BoardingView.swift */; };
 		56B74A4D246A619E000C114A /* LoginItemCreationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B74A4C246A619E000C114A /* LoginItemCreationView.swift */; };
 		56B74A4F246A65AC000C114A /* LabelTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56B74A4E246A65AC000C114A /* LabelTextField.swift */; };
+		56C25933247BE39000F8EC87 /* ModalModeKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56C25932247BE39000F8EC87 /* ModalModeKey.swift */; };
 		56CA28002473CAFE00099FE9 /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56CA27FF2473CAFE00099FE9 /* AuthenticationService.swift */; };
 		56E2936A2478DF0A00744385 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56E293692478DF0A00744385 /* main.swift */; };
 		56EB35902469295C0004E9AB /* ItemTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56EB358F2469295C0004E9AB /* ItemTypes.swift */; };
@@ -99,6 +100,7 @@
 		56A120FC247908D700CCCA42 /* BoardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardingView.swift; sourceTree = "<group>"; };
 		56B74A4C246A619E000C114A /* LoginItemCreationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginItemCreationView.swift; sourceTree = "<group>"; };
 		56B74A4E246A65AC000C114A /* LabelTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelTextField.swift; sourceTree = "<group>"; };
+		56C25932247BE39000F8EC87 /* ModalModeKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalModeKey.swift; sourceTree = "<group>"; };
 		56CA27FF2473CAFE00099FE9 /* AuthenticationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationService.swift; sourceTree = "<group>"; };
 		56E293692478DF0A00744385 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		56EB358F2469295C0004E9AB /* ItemTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemTypes.swift; sourceTree = "<group>"; };
@@ -227,6 +229,7 @@
 			isa = PBXGroup;
 			children = (
 				5657EE62246811EA000514B9 /* Bundle+Extensions.swift */,
+				56C25932247BE39000F8EC87 /* ModalModeKey.swift */,
 			);
 			path = "Support Files";
 			sourceTree = "<group>";
@@ -456,6 +459,7 @@
 				5657EE63246811EA000514B9 /* Bundle+Extensions.swift in Sources */,
 				56B74A4D246A619E000C114A /* LoginItemCreationView.swift in Sources */,
 				56E2936A2478DF0A00744385 /* main.swift in Sources */,
+				56C25933247BE39000F8EC87 /* ModalModeKey.swift in Sources */,
 				56EB35902469295C0004E9AB /* ItemTypes.swift in Sources */,
 				56EB359324696A6A0004E9AB /* KeyChainManager.swift in Sources */,
 				5652DAA0247009A200687959 /* IdentityItemCreationView.swift in Sources */,
