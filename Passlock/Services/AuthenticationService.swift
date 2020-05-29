@@ -14,6 +14,10 @@ import UIKit
 public class AuthenticationService: ObservableObject {
     @Published var isAuthorized = false
     @Published var dbHasConnected = false
+    @Published var hasFound = false
+    @Published var reason = "Loading..."
+    
+    static var shared = AuthenticationService()
     // Update State of Application
     var ApplicationStatePublisher: AnyPublisher<Notification, Never> {
         Publishers.Merge3(NotificationCenter.default

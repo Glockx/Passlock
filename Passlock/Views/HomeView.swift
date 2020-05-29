@@ -46,7 +46,7 @@ struct HomeView: View {
                             Image(systemName: "tray.fill")
                                 .foregroundColor(.orange)
                                 .font(.title)
-                                
+
                             Text("Items has not added yet.")
                                 .foregroundColor(.orange)
                                 .font(.headline)
@@ -71,7 +71,8 @@ struct HomeView: View {
         }.onAppear {
             // To remove eparators from the list:
             UITableView.appearance().separatorColor = .clear
-
+            
+            // Retrieve Items on First Launch
             let delegate = UIApplication.shared.delegate as! AppDelegate
             let SQLManager = delegate.SQLite
 

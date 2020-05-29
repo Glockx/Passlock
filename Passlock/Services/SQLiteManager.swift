@@ -17,11 +17,14 @@ public class SQLiteManager {
     var path: String!
     var db: Connection!
     @ObservedObject var itemStore: ItemStore = ItemStore.shared
+    
     // Init SQL table for login credentials
     let loginCredentialsTable = Table("loginCredentials")
     let creditCardsTable = Table("creditCards")
     let notesTable = Table("notes")
     let identityTable = Table("identity")
+    
+    // Actually this variable stores encryption key of the database, for making reverse-engineering harder I named it randomly.
     var DBVersion = ""
 
     // MARK: Initializer of class
@@ -47,7 +50,6 @@ public class SQLiteManager {
     }
 
     // - Function: Change DB Encrpytion Key
-
     func changeDBKey(key: String) {
         do {
             try db.key(DBVersion)
@@ -161,6 +163,8 @@ public class SQLiteManager {
             print(error)
         }
     }
+    
+    // MARK: CRUD FUNCTIONS
 
     // - Function: Inserting Item to Database.
     func insertItemToDB<T: Codable>(item: T, table: Table) {

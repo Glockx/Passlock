@@ -21,9 +21,9 @@ class InactivityTrackingApplication: UIApplication {
     private(set) var isTracking: Bool = false
     /// set to true if you want to stop the tracking when the time out fires
     var stopTrackingOnTimeOut: Bool = false
-    
+
     private var workItem: DispatchWorkItem?
-    
+
     private func restartTracking() {
         if isTracking {
             workItem?.cancel()
@@ -32,11 +32,11 @@ class InactivityTrackingApplication: UIApplication {
                                                 object: nil
                 )
             }
-            DispatchQueue.main.asyncAfter(deadline: .now() + self.timeOut, execute: workItem!)
+            DispatchQueue.main.asyncAfter(deadline: .now() + timeOut, execute: workItem!)
             if stopTrackingOnTimeOut { stopTracking() }
         }
     }
-    
+
     /// Starts tracking inactivity
     /// - parameters:
     ///     - timeOut: lenth of time the application can be inactive before timing out and posting the Notification
@@ -46,19 +46,19 @@ class InactivityTrackingApplication: UIApplication {
         isTracking = true
         restartTracking()
     }
-    
+
     /// Stops tracking the inactivity
     func stopTracking() {
         print("Tracking Has Stoped!")
         workItem?.cancel()
         isTracking = false
     }
-    
+
     override func sendEvent(_ event: UIEvent) {
         super.sendEvent(event)
-        
+
         guard isTracking else { return }
-        
+
         if let touches = event.allTouches {
             for touch in touches where touch.phase == UITouch.Phase.began {
                 restartTracking()
@@ -71,6 +71,13 @@ extension Notification.Name {
     /// Notification posted by InactivityTrackingApplication when inactivity has timed out
     static let applicationInactivityTimeOut = Notification.Name("com.davita.mcoe.dcc.applicationInactivityTimeOut")
 }
+
+// Turn on Anti-Debug on Release Mode.
+#if DEBUG
+
+#else
+    dd()
+#endif
 
 /// Override `int main(int argc, char** argv)` the swift way ¯\_(ツ)_/¯
 UIApplicationMain(

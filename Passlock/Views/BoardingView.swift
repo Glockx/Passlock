@@ -13,7 +13,7 @@ struct BoardingView: View {
     @EnvironmentObject var settings: UserSettings
     @EnvironmentObject var AuthService: AuthenticationService
     @State var password = ""
-    
+
     var body: some View {
         VStack {
             HStack {
@@ -27,29 +27,39 @@ struct BoardingView: View {
             }.padding(.top, 50)
             Spacer()
             VStack {
-                Text("Enter Master Key:")
+                Text("Welcome To LockPass.\nPlease Enter Master Key:")
                     .font(.system(size: 25))
                     .fontWeight(.medium)
                     .foregroundColor(.white)
+                    .multilineTextAlignment(.center)
 
-                HStack{
+                HStack {
                     Image(systemName: "lock")
-                    .foregroundColor(.white)
-                    SecureField("Secret Key...", text: $password,onCommit: {
+                        .foregroundColor(.white)
+                    SecureField("Secret Key...", text: $password, onCommit: {
                         KeyChainManager().storeKeyBioMetric(data: self.password)
+                        self.AuthService.initDB()
                         self.settings.isFirstLaunch = false
                         self.AuthService.isAuthorized = true
                         print(self.settings.isFirstLaunch)
                         self.presentation.wrappedValue.dismiss()
-                        })
+                    })
                 }
-                    .foregroundColor(.white)
-                    .padding(.horizontal, 10)
-                    .frame(height: 50)
-                    .border(Color.white, width: 3)
-                    .cornerRadius(3)
-                
+                .foregroundColor(.white)
+                .padding(.horizontal, 10)
+                .frame(height: 50)
+                .border(Color.white, width: 3)
+                .cornerRadius(3)
+
             }.padding(.horizontal, 30)
+//            Button(action: {
+//                // KeyChainManager().storeKeyBioMetric(data: self.password)
+//                self.AuthService.initDB()
+//                self.settings.isFirstLaunch = false
+//                self.AuthService.isAuthorized = true
+//                print(self.settings.isFirstLaunch)
+//                self.presentation.wrappedValue.dismiss()
+//            }, label: { Text("Click me").foregroundColor(.white) })
             Spacer()
             Spacer()
         }

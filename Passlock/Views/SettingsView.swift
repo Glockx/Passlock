@@ -78,7 +78,8 @@ struct SettingsView: View {
 
                 Text("Version: \(version!) - Build: \(buildNumber!)")
                     .multilineTextAlignment(.center)
-                    .navigationBarTitle("Settings", displayMode: .automatic).frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .center)
+                    .navigationBarTitle("Settings", displayMode: .automatic)
+                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .center)
             }
         }.onAppear {
             // Index of saved autoLock time

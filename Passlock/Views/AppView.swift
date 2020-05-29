@@ -18,6 +18,7 @@ struct AppView: View {
     @State private var shareShown = false
     @EnvironmentObject var AuthService: AuthenticationService
     @EnvironmentObject var settings: UserSettings
+    @EnvironmentObject var logger: LoggerService
     @State private var passText = ""
     var body: some View {
         // Setting Main view of application with Home and Setting view
@@ -53,14 +54,14 @@ struct AppView: View {
                             (UIApplication.shared as? InactivityTrackingApplication)?.startTracking()
                         }
                         VStack {
-                            SecureField("Master Key", text: $passText,onCommit: {
+                            SecureField("Master Key", text: $passText, onCommit: {
                                 let delegate = UIApplication.shared.delegate as! AppDelegate
                                 let sqlManager = delegate.SQLite
-                                
-                                if self.passText == sqlManager?.DBVersion{
+
+                                if self.passText == sqlManager?.DBVersion {
                                     self.AuthService.isAuthorized = true
                                     self.passText = ""
-                                }else{
+                                } else {
                                     self.errorMessage = "Master key is wrong,please try again!"
                                 }
                             })
@@ -69,7 +70,7 @@ struct AppView: View {
                                 .frame(height: 50)
                                 .border(Color.white, width: 3)
                                 .cornerRadius(3)
-                        }.padding(.horizontal,30)
+                        }.padding(.horizontal, 30)
 
                         if !errorMessage.isEmpty {
                             Text(errorMessage)
@@ -83,31 +84,40 @@ struct AppView: View {
                 }
             }
 
-        }.accentColor(.orange)
-            // Lock the app when user left
-            .onReceive(AuthService.ApplicationStatePublisher) { notication in
-                switch notication.name.rawValue {
-                case "UIApplicationDidEnterBackgroundNotification":
-                    print("App has become deacitve")
-                    self.AuthService.isAuthorized = false
-                default: break
-                }
-                // Observe user inactivity and lock the app
-            }.onReceive(NotificationCenter.default.publisher(for: .applicationInactivityTimeOut)) { _ in
+        }.alert(isPresented: self.$logger.isLogging) {
+            Alert(title: Text("Title"),
+                  message: Text("Your Device Has Been Jailbroken!"),
+                  dismissButton: .default(Text("Exit")) { exit(0) })
+        }
+        .accentColor(.orange)
+        // Lock the app when user left
+        .onReceive(AuthService.ApplicationStatePublisher) { notication in
+            switch notication.name.rawValue {
+            case "UIApplicationDidEnterBackgroundNotification":
+                print("App has become deacitve")
                 self.AuthService.isAuthorized = false
+            default: break
             }
-            .onAppear {
-                // authenticated successfully
-
-                if !self.AuthService.dbHasConnected {
+            // Observe user inactivity and lock the app
+        }.onReceive(NotificationCenter.default.publisher(for: .applicationInactivityTimeOut)) { _ in
+            self.AuthService.isAuthorized = false
+        }
+        .onAppear {
+            print("is first launch: ", self.settings.isFirstLaunch)
+            // Check If db has connected and it is first launch of app
+            if !self.AuthService.dbHasConnected {
+                if !self.settings.isFirstLaunch {
                     self.AuthService.initDB()
                 }
-                print("authorized")
-                // set autoLock Time
-                if self.settings.isAutoLockEnabled {
-                    (UIApplication.shared as? InactivityTrackingApplication)?.startTracking(timeOut: self.settings.autoLockTime)
-                }
+                // Check Jailbreak
+                self.logger.logAll()
             }
+            print("authorized")
+            // set autoLock Time
+            if self.settings.isAutoLockEnabled {
+                (UIApplication.shared as? InactivityTrackingApplication)?.startTracking(timeOut: self.settings.autoLockTime)
+            }
+        }
     }
 }
 

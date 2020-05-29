@@ -19,10 +19,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         let settings = UserSettings()
         let AuthService  = AuthenticationService()
-        
+        let checking = LoggerService()
         //settings.isFirstLaunch = true
         // Create the SwiftUI view that provides the window contents.
-        let contentView = AppView().environmentObject(AuthService).environmentObject(settings)
+        let contentView = AppView().environmentObject(AuthService).environmentObject(settings).environmentObject(checking)
         
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {
