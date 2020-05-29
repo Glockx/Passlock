@@ -85,9 +85,9 @@ struct AppView: View {
             }
 
         }.alert(isPresented: self.$logger.isLogging) {
-            Alert(title: Text("Title"),
-                  message: Text("Your Device Has Been Jailbroken!"),
-                  dismissButton: .default(Text("Exit")) { exit(0) })
+            Alert(title: Text("Attention!"),
+                  message: Text(" Your Device Has Been Jailbroken! "),
+                  dismissButton: .destructive(Text("Exit")) { exit(0) })
         }
         .accentColor(.orange)
         // Lock the app when user left

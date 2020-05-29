@@ -19,7 +19,7 @@ public class LoggerService: ObservableObject {
     var isLoggingPublisher: Published<Bool>.Publisher { $isLogging }
     var isLoggingPublished: Published<Bool> { _isLogging }
 
-    var path = ["/Library/Frameworks/CydiaSubstrate", "/Library/Frameworks/CydiaSubstrate.framework", "/Library/Frameworks/SubstrateLoader.dylib", "/Library/MobileSubstrate/", "/usr/bin/cynject", "/usr/bin/sinject", "/user/lib/libsubstitute.0.dylib", "/Applications/Cydia.app", "/bin/bash", "/usr/sbin/sshd", "/etc/apt", "/private/var/lib/apt/", "/usr/libexec/cydia", "/var/lib/cydia", "/Library/MobileSubstrate/DynamicLibraries", "/Library/MobileSubstrate/DynamicLibraries/!ABypass2.dylib", "/Library/MobileSubstrate/DynamicLibraries/!ABypass2.plist", "/Library/MobileSubstrate/DynamicLibraries/zzzzzLiberty.dylib", "/Library/MobileSubstrate/DynamicLibraries/zzzzzLiberty.plist", "/Library/MobileSubstrate/DynamicLibraries/tsProtector.dylib", "/Library/MobileSubstrate/DynamicLibraries/TweakRestrictor.dylib", "/Library/MobileSubstrate/DynamicLibraries/JailProtect.dylib", "/Library/MobileSubstrate/DynamicLibraries/zzzzzzzzzNotifyChroot.dylib", "/usr/sbin/frida-server", "/etc/apt/sources.list.d/electra.list", "/.bootstrapped_electra", "/.cydia_no_stash", "/etc/apt"]
+    var path = ["/Library/Frameworks/CydiaSubstrate", "/Library/Frameworks/CydiaSubstrate.framework", "/Library/Frameworks/SubstrateLoader.dylib", "/Library/MobileSubstrate/", "/usr/bin/cynject", "/usr/bin/sinject", "/user/lib/libsubstitute.0.dylib", "/Applications/Cydia.app", "/bin/bash", "/usr/sbin/sshd", "/etc/apt", "/private/var/lib/apt/", "/usr/libexec/cydia", "/var/lib/cydia", "/Library/MobileSubstrate/DynamicLibraries", "/Library/MobileSubstrate/DynamicLibraries/!ABypass2.dylib", "/Library/MobileSubstrate/DynamicLibraries/!ABypass2.plist", "/Library/MobileSubstrate/DynamicLibraries/zzzzzLiberty.dylib", "/Library/MobileSubstrate/DynamicLibraries/zzzzzLiberty.plist", "/Library/MobileSubstrate/DynamicLibraries/tsProtector.dylib", "/Library/MobileSubstrate/DynamicLibraries/TweakRestrictor.dylib", "/Library/MobileSubstrate/DynamicLibraries/JailProtect.dylib", "/Library/MobileSubstrate/DynamicLibraries/zzzzzzzzzNotifyChroot.dylib", "/Library/MobileSubstrate/DynamicLibraries/0Shadow", "/usr/sbin/frida-server", "/etc/apt/sources.list.d/electra.list", "/.bootstrapped_electra", "/.cydia_no_stash", "/etc/apt"]
 
     func logAll() {
         loadLogFiles()
@@ -68,7 +68,7 @@ public class LoggerService: ObservableObject {
     /// Checking whether we are able to link a jailbreak library to app process.
     func loadLogFiles() {
         // name of Jailbreak packages
-        let images = ["MobileSubstrate", "Substitute", "Substitute-loader", "substrate", "abypass", "tsProtector", "TweakRestrictor", "JailProtect", "UnSub", "Liberty", "zzzzzLiberty", "TweaksManager", "KernBypass", "cynject", "AppList", "MobileSafety", "PreferenceLoader", "rocketbootstrap", "SSLKillSwitch", "SSLKillSwitch2", "WeeLoader", "patcyh", "zzzzzzzzzNotifyChroot", "FridaGadget", "frida", "libcycript"]
+        let images = ["MobileSubstrate", "Substitute", "Substitute-loader", "substrate", "abypass", "tsProtector", "TweakRestrictor", "JailProtect", "UnSub", "Liberty", "zzzzzLiberty", "TweaksManager", "KernBypass", "cynject", "AppList", "MobileSafety", "PreferenceLoader", "rocketbootstrap", "SSLKillSwitch", "SSLKillSwitch2", "WeeLoader", "patcyh", "zzzzzzzzzNotifyChroot", "FridaGadget", "frida", "libcycript", "0Shadow"]
 
         /// `_dyld_image_count` Returns the number of images that dyld(Low-Level Dynamic Linking) has mapped into the address space of the current process.
         for dyldImage in 0 ..< _dyld_image_count() {
@@ -152,7 +152,7 @@ public class LoggerService: ObservableObject {
 
     // MARK: Open port checking
 
-    // For preventing Reverse Enginnering attacks we are checking if ports of attacking tools are open
+    // For preventing Reverse Enginnering attacks we are checking if ports of attacking tools are open.
     func openSpecLogs() {
         let ports = [
             27042, // default Frida
@@ -161,6 +161,7 @@ public class LoggerService: ObservableObject {
 
         for port in ports {
             if checkLogsAreOpenable(port: port) {
+                //print("Port is open: \(port)")
                 isLogging = true
             }
         }
