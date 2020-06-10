@@ -22,7 +22,8 @@ struct HomeView: View {
                             self.buildView(item: item)
                         }.onDelete(perform: loginDelete)
                         Divider()
-                    } else if !itemRepo.identityItems.isEmpty {
+                    }
+                    if !itemRepo.identityItems.isEmpty {
                         Text("IDENTITY").fontWeight(.bold).padding(.top, 10).foregroundColor(.orange)
 
                         ForEach(itemRepo.identityItems, id: \.self) { item in
@@ -30,13 +31,15 @@ struct HomeView: View {
                         }.onDelete(perform: identityDelete)
 
                         Divider()
-                    } else if !itemRepo.creditCardItems.isEmpty {
+                    }
+                    if !itemRepo.creditCardItems.isEmpty {
                         Text("DEBIT CARD").fontWeight(.bold).foregroundColor(.orange)
                         ForEach(itemRepo.creditCardItems, id: \.self) { item in
                             self.buildView(item: item)
                         }.onDelete(perform: cardDelete)
                         Divider()
-                    } else if !itemRepo.noteItems.isEmpty {
+                    }
+                    if !itemRepo.noteItems.isEmpty {
                         Text("NOTE").fontWeight(.bold).foregroundColor(.orange)
                         ForEach(itemRepo.noteItems) { item in
                             self.buildView(item: item)

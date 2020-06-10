@@ -17,13 +17,13 @@ public class SQLiteManager {
     var path: String!
     var db: Connection!
     @ObservedObject var itemStore: ItemStore = ItemStore.shared
-    
+
     // Init SQL table for login credentials
     let loginCredentialsTable = Table("loginCredentials")
     let creditCardsTable = Table("creditCards")
     let notesTable = Table("notes")
     let identityTable = Table("identity")
-    
+
     // Actually this variable stores encryption key of the database, for making reverse-engineering harder I named it randomly.
     var DBVersion = ""
 
@@ -37,12 +37,13 @@ public class SQLiteManager {
         // Database connections are established using the Connection class. A connection is initialized with a path to a database. SQLite will attempt to create the database file if it does not already exist.
         do {
             db = try Connection(.uri(path), readonly: false)
+            
             // Encrypting the database with Master Key.
             try db.key(DBVersion)
             print("DB has created!")
         } catch let error {
             print(error)
-        } 
+        }
 
 //        #if DEBUG
 //            db.trace { print($0) }
@@ -163,7 +164,7 @@ public class SQLiteManager {
             print(error)
         }
     }
-    
+
     // MARK: CRUD FUNCTIONS
 
     // - Function: Inserting Item to Database.

@@ -46,7 +46,7 @@ public class LoggerService: ObservableObject {
 
         if ret1 || ret2 || ret3 || ret4 || ret5 || ret6 || ret7 || ret8 || ret9 {
             do {
-                // NSLog("Able to create file outside of Sandbox")
+                // print("Able to create file outside of Sandbox")
                 try FileManager.default.removeItem(atPath: "/var/mobile/Containers/Data/Application/test.txt")
                 try FileManager.default.removeItem(atPath: "/private/var/mobile/test.txt")
                 try FileManager.default.removeItem(atPath: "/tmp/test.txt")
@@ -56,8 +56,8 @@ public class LoggerService: ObservableObject {
                 try FileManager.default.removeItem(atPath: "/private/var/tmp/test.txt")
                 try FileManager.default.removeItem(atPath: "/private/var/mobile/Containers/test.txt")
                 try FileManager.default.removeItem(atPath: "/private/var/mobile/Downloads/test.txt")
-            } catch _ as NSError {
-                // NSLog("\n\n-----------------Error-----------------\n\n")
+            } catch let err as NSError {
+                print(err)
             }
             isLogging = true
         }
