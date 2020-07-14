@@ -18,4 +18,4 @@ These are the features included in project:
 -	Simple User Interface
 
 # Project Report
-https://www.dropbox.com/s/6w53jk9vk9ly27s/Graduation%20Project%20-%20Report%20-%20Nijat%20Muzaffarli%20-%20Final.pdf?dl=0
+https://bit.ly/3er6UZi
